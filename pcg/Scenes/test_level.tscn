@@ -9,7 +9,10 @@
 [ext_resource type="Script" uid="uid://d2r3txa32dnax" path="res://Scenes/CameraDebug.gd" id="6_btda1"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xq3o0"]
-frequency = 0.0344
+frequency = 0.0075
+fractal_octaves = 6
+fractal_lacunarity = 1.98
+fractal_gain = 0.56
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2yvf5"]
 noise = SubResource("FastNoiseLite_xq3o0")
@@ -19,10 +22,9 @@ noise = SubResource("FastNoiseLite_xq3o0")
 [node name="CameraController" type="Node2D" parent="."]
 script = ExtResource("1_7w7ni")
 movement_speed = 120.0
-zoom_speed = 0.63
-min_zoom = 0.295
+zoom_speed = 0.5
+min_zoom = 0.009
 max_zoom = 4
-camera_zoom_speed_damp = 10.0
 can_pan = false
 
 [node name="Camera2D" type="Camera2D" parent="CameraController"]
@@ -38,16 +40,16 @@ texture = ExtResource("2_dtjkg")
 script = ExtResource("1_eglq2")
 chunk_amount = 10
 chunk_size = 50
-chunk_loading_range = null
 chunk_timer = NodePath("ChunkTimer")
 chunk_focus_point = NodePath("../../CameraController/Debug")
 map_generator = NodePath("../MapGenerator")
+debug_enabled = false
 inactive_chunk_color = Color(0.856494, 3.65794e-06, 8.66354e-07, 0.490196)
 focus_chunk_color = Color(0, 0, 0.956863, 1)
 debug_backdrop = false
 
 [node name="ChunkTimer" type="Timer" parent="ProceduralMap/ChunkManager"]
-wait_time = 0.2
+wait_time = 0.1
 autostart = true
 
 [node name="MapGenerator" type="Node" parent="ProceduralMap" node_paths=PackedStringArray("chunk_manager")]

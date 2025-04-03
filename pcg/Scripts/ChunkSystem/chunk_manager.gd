@@ -11,6 +11,7 @@ class_name ChunkManager
 var chunk_total_size : int = tile_size * chunk_size
 var chunk_dictionary : Dictionary [Vector2i,Chunk]
 var current_loaded_chunks : Array [Chunk]
+var current_generated_chunks : Array [Chunk]
 var current_visited_chunk : Chunk
 var current_visited_chunk_coordinates : Vector2i
 @export var chunk_loading_range : int = 2
@@ -31,8 +32,7 @@ func _ready() -> void:
 	InstantiateChunks()
 	current_visited_chunk = chunk_dictionary.get(Vector2i(1,1))
 	print(chunk_dictionary.get(Vector2i(1,1)))
-	if current_visited_chunk:
-		Test()
+	UpdateDebugState()
 	pass
 	
 func InstantiateChunks():
@@ -82,12 +82,6 @@ func GetNeighbours():
 	else:
 		return neighbours
 
-func Test():
-	current_visited_chunk.color = Color.BLUE	
-	for i in GetNeighbours():
-		if chunk_dictionary.get(i):
-			chunk_dictionary.get(i).color = active_chunk_color
-	
 
 #chunk loading functions
 func GetCameraChunkCoordinates() -> Vector2i:
@@ -100,46 +94,44 @@ func GetCameraChunkCoordinates() -> Vector2i:
 	return coordinates
 	
 func UpdateVisibleChunks():
-	#clear current_chunks
-	current_loaded_chunks.clear()
-	current_loaded_chunks.append(current_visited_chunk)
-	
+
 	#set coordinates
 	current_visited_chunk_coordinates = GetCameraChunkCoordinates()
 	current_visited_chunk = chunk_dictionary.get(current_visited_chunk_coordinates)
-	current_visited_chunk
-	#get neigbouring chunks
-	for neigbour in GetNeighbours():
-		var neigbour_chunk : Chunk = chunk_dictionary.get(neigbour)
-		current_loaded_chunks.append(neigbour_chunk)
 	
-	#set chunk states
 	for chunk : Chunk in chunk_dictionary.values():
-		#check if chunk is already loaded
-		if current_loaded_chunks.has(chunk):
-			if chunk.is_active:
-				if chunk == current_visited_chunk:
-					chunk.color = focus_chunk_color
-				else:
-					chunk.color = active_chunk_color
-				pass
-			else:
-				#chunk needs to be loaded and set active
-				chunk.color = active_chunk_color
-				chunk.is_active = true
-				chunk.UpdateChunk()
-				chunk.GenerateTerrain(map_generator.terrain_noise, map_generator)
-				#chunk.visible = true
+		if GetValidChunks().has(chunk):
+			chunk.color = active_chunk_color
+			chunk.is_active = true
+			chunk.UpdateChunk()
+			if !current_generated_chunks.has(chunk):
+					chunk.GenerateTerrain(map_generator.terrain_noise, map_generator)
+					current_generated_chunks.append(chunk)
 		else:
-			#chunk does not need to be loaded and thus be set inactive
-			chunk.color = inactive_chunk_color
 			chunk.is_active = false
 			chunk.UpdateChunk()
-			#chunk.visible = false
+			#chunk does not need to be loaded and thus qbe set inactive
+			current_loaded_chunks.erase(chunk)
+			chunk.color = inactive_chunk_color
+			
+	
 		chunk.queue_redraw()	
 	
+	print(current_loaded_chunks.size())
 	pass
-	
+
+func GetValidChunks() -> Array [Chunk]:
+	var valid_chunks : Array [Chunk]
+	valid_chunks.append(current_visited_chunk)
+	for n in GetNeighbours():
+		valid_chunks.append(chunk_dictionary.get(n))
+	return valid_chunks
+#debug handler
+func UpdateDebugState():
+	for chunk : Chunk in chunk_dictionary.values():
+		chunk.debug_enabled = debug_enabled
+		queue_redraw()
+		
 func _on_chunk_timer_timeout() -> void:
 	UpdateVisibleChunks()
 	pass # Replace with function body.

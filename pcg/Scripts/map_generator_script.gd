@@ -12,9 +12,35 @@ func _ready() -> void:
 	terrain_noise = terrain_noise_texture.noise
 	pass # Replace with function body.
 
+#function to get the corresponding tile atlas for the given noise value
 func CalculateCellType(noise_value) -> Vector2i:
 	if noise_value <= water_level:
 		#its water
-		return(Vector2i(2,3))
+		if noise_value <= water_level - 0.2:
+			if noise_value <= water_level - 0.3:
+				return(Vector2i(4,3))
+			else:
+				return(Vector2i(3,3))
+		else:
+			return(Vector2i(2,3))
 	else:
-		return(Vector2i(0,1))
+		#its not water
+		if noise_value >= water_level + 0.15:
+			if noise_value >= water_level + 0.3:
+				return(Vector2i(3,1))
+			#rocks
+			
+			else:
+				if noise_value >= water_level + 0.35:
+					if noise_value >= water_level + 0.45:
+						return(Vector2i(3,2))
+					else:
+						return(Vector2i(2,2))
+				else:
+					return(Vector2i(2,1))
+		else:
+			#sand
+			if noise_value >= water_level +0.1:
+				return(Vector2i(1,0))
+			else:
+				return(Vector2i(0,0))

@@ -9,6 +9,7 @@ var color : Color
 var chunkCoordinates : Vector2i
 var is_active : bool = false
 var debug_backdrop : bool = true
+var debug_enabled : bool = true
 @export var debug_font : Font
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -35,7 +36,6 @@ func UpdateChunk():
 	if is_active:
 		test_tilemap.visible = true
 	else:
-		test_tilemap.clear()
 		test_tilemap.visible = false
 	#DEBUG SHIT
 func _draw() -> void:
@@ -43,15 +43,16 @@ func _draw() -> void:
 	var chunk_rect : Rect2i = GetChunkRect()
 	
 	#debug things
-	draw_rect(chunk_rect,color,false,10,true)
-	
-	if debug_backdrop:
-		var new_color = color
-		new_color.a = 0.2
-		draw_rect(chunk_rect,new_color,true,-1,true)
-	draw_string(debug_font,Vector2.ZERO, str(chunkCoordinates),HORIZONTAL_ALIGNMENT_CENTER,-1,30,color)
-	pass
+	if debug_enabled:
+		draw_rect(chunk_rect,color,false,10,true)
+		if debug_backdrop:
+			var new_color = color
+			new_color.a = 0.2
+			draw_rect(chunk_rect,new_color,true,-1,true)
+		draw_string(debug_font,Vector2.ZERO, str(chunkCoordinates),HORIZONTAL_ALIGNMENT_CENTER,-1,30,color)
+		pass
 
+#terrain generation
 func GenerateTerrain(noise : Noise, mapgenerator : MapGenerator):
 	for x in range(-chunk_size/2,chunk_size/2):
 		for y in range(-chunk_size/2,chunk_size/2):
