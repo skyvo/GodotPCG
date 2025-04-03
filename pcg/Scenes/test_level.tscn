@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://cn8bteq2lx4gp"]
+
+[ext_resource type="Script" uid="uid://cmxest1nulhgn" path="res://Scripts/Player/camera_script.gd" id="1_7w7ni"]
+[ext_resource type="Script" uid="uid://cqaphtbjhnv0q" path="res://Scripts/ChunkSystem/chunk_manager.gd" id="1_eglq2"]
+[ext_resource type="Texture2D" uid="uid://bsejmi23ch1xy" path="res://icon.svg" id="2_dtjkg"]
+[ext_resource type="Script" uid="uid://dfpwxv7lhufvm" path="res://Scenes/label.gd" id="4_rsyfn"]
+[ext_resource type="Script" uid="uid://bt32nbad6jvyw" path="res://Scripts/map_generator_script.gd" id="4_xq3o0"]
+[ext_resource type="Script" uid="uid://bhowhd072vdo7" path="res://Scripts/DebugScripts/PositionDebug.gd" id="5_7w7ni"]
+[ext_resource type="Script" uid="uid://d2r3txa32dnax" path="res://Scenes/CameraDebug.gd" id="6_btda1"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xq3o0"]
+frequency = 0.0344
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2yvf5"]
+noise = SubResource("FastNoiseLite_xq3o0")
+
+[node name="TestLevel" type="Node2D"]
+
+[node name="CameraController" type="Node2D" parent="."]
+script = ExtResource("1_7w7ni")
+movement_speed = 120.0
+zoom_speed = 0.63
+min_zoom = 0.295
+max_zoom = 4
+camera_zoom_speed_damp = 10.0
+can_pan = false
+
+[node name="Camera2D" type="Camera2D" parent="CameraController"]
+zoom = Vector2(0.57, 0.57)
+
+[node name="Debug" type="Sprite2D" parent="CameraController"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_dtjkg")
+
+[node name="ProceduralMap" type="Node2D" parent="."]
+
+[node name="ChunkManager" type="Node2D" parent="ProceduralMap" node_paths=PackedStringArray("chunk_timer", "chunk_focus_point", "map_generator")]
+script = ExtResource("1_eglq2")
+chunk_amount = 10
+chunk_size = 50
+chunk_loading_range = null
+chunk_timer = NodePath("ChunkTimer")
+chunk_focus_point = NodePath("../../CameraController/Debug")
+map_generator = NodePath("../MapGenerator")
+inactive_chunk_color = Color(0.856494, 3.65794e-06, 8.66354e-07, 0.490196)
+focus_chunk_color = Color(0, 0, 0.956863, 1)
+debug_backdrop = false
+
+[node name="ChunkTimer" type="Timer" parent="ProceduralMap/ChunkManager"]
+wait_time = 0.2
+autostart = true
+
+[node name="MapGenerator" type="Node" parent="ProceduralMap" node_paths=PackedStringArray("chunk_manager")]
+script = ExtResource("4_xq3o0")
+chunk_manager = NodePath("../ChunkManager")
+terrain_noise_texture = SubResource("NoiseTexture2D_2yvf5")
+
+[node name="DEBUG_UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="DEBUG_UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DEBUG_UI/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FPSLabel" type="Label" parent="DEBUG_UI/Control/VBoxContainer"]
+layout_mode = 2
+text = "FPS : "
+script = ExtResource("4_rsyfn")
+
+[node name="PositionsLabel" type="Label" parent="DEBUG_UI/Control/VBoxContainer" node_paths=PackedStringArray("chunk_manager")]
+layout_mode = 2
+text = "COORDINATES"
+script = ExtResource("5_7w7ni")
+chunk_manager = NodePath("../../../../ProceduralMap/ChunkManager")
+
+[node name="Label3" type="Label" parent="DEBUG_UI/Control/VBoxContainer" node_paths=PackedStringArray("camera")]
+layout_mode = 2
+text = "FPS : "
+script = ExtResource("6_btda1")
+camera = NodePath("../../../../CameraController/Camera2D")
+
+[connection signal="timeout" from="ProceduralMap/ChunkManager/ChunkTimer" to="ProceduralMap/ChunkManager" method="_on_chunk_timer_timeout"]

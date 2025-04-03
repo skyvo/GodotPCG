@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cn8bteq2lx4gp"]
+
+[ext_resource type="Script" uid="uid://cqaphtbjhnv0q" path="res://Scenes/chunk_manager.gd" id="1_eglq2"]
+[ext_resource type="Script" uid="uid://dauhurit0pest" path="res://Scenes/camera_2d.gd" id="1_rsyfn"]
+[ext_resource type="Texture2D" uid="uid://bsejmi23ch1xy" path="res://icon.svg" id="2_dtjkg"]
+
+[node name="TestLevel" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.57, 0.57)
+script = ExtResource("1_rsyfn")
+
+[node name="ChunkManager" type="Node2D" parent="."]
+script = ExtResource("1_eglq2")
+chunk_amount = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("2_dtjkg")
