@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://xjeefhb6iy5s"]
+
+[ext_resource type="Shader" uid="uid://b2ov7ie6so8lp" path="res://Art/Material/water.gdshader" id="1_3eq5g"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_igktu"]
+frequency = 0.0249
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_epr4u"]
+noise = SubResource("FastNoiseLite_igktu")
+
+[resource]
+shader = ExtResource("1_3eq5g")
+shader_parameter/noise = SubResource("NoiseTexture2D_epr4u")
+shader_parameter/scroll = Vector2(0.05, 0.05)
+shader_parameter/distortion_strength = 4.75e-08

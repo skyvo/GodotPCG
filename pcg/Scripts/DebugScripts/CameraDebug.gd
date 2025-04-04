@@ -9,5 +9,5 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	current_zoom = camera.zoom
-	text = "zoom: " + str(current_zoom)
+	text = "zoom: " + str(current_zoom.x)
 	pass

@@ -2,16 +2,18 @@ extends Node2D
 class_name ChunkManager
 
 @export_category("Chunk Settings")
-@export var chunk_prefab : PackedScene = preload("res://chunk.tscn")
+@export var chunk_prefab : PackedScene 
 @export var chunk_amount : int 
 @export var tile_size : int = 16
-@export var chunk_size : int = 100
+@export var chunk_size : int = 50
 
 @export_category("Chunk loading Settings")
+#total chunk width in pixels
 var chunk_total_size : int = tile_size * chunk_size
 var chunk_dictionary : Dictionary [Vector2i,Chunk]
 var current_loaded_chunks : Array [Chunk]
 var current_generated_chunks : Array [Chunk]
+
 var current_visited_chunk : Chunk
 var current_visited_chunk_coordinates : Vector2i
 @export var chunk_loading_range : int = 2
@@ -95,13 +97,19 @@ func GetCameraChunkCoordinates() -> Vector2i:
 	
 func UpdateVisibleChunks():
 
+	#profiler shit
+	var start = Time.get_ticks_usec()
+	
 	#set coordinates
 	current_visited_chunk_coordinates = GetCameraChunkCoordinates()
 	current_visited_chunk = chunk_dictionary.get(current_visited_chunk_coordinates)
 	
 	for chunk : Chunk in chunk_dictionary.values():
 		if GetValidChunks().has(chunk):
-			chunk.color = active_chunk_color
+			if chunk == current_visited_chunk:
+				chunk.color = focus_chunk_color
+			else:
+				chunk.color = active_chunk_color
 			chunk.is_active = true
 			chunk.UpdateChunk()
 			if !current_generated_chunks.has(chunk):
@@ -116,7 +124,9 @@ func UpdateVisibleChunks():
 			
 	
 		chunk.queue_redraw()	
-	
+	var end = Time.get_ticks_usec()
+	var function_time = (end - start) / 1000000.0
+	print(function_time)
 	print(current_loaded_chunks.size())
 	pass
 

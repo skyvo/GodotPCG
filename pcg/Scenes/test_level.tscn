@@ -1,15 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://cn8bteq2lx4gp"]
+[gd_scene load_steps=12 format=3 uid="uid://cn8bteq2lx4gp"]
 
 [ext_resource type="Script" uid="uid://cmxest1nulhgn" path="res://Scripts/Player/camera_script.gd" id="1_7w7ni"]
 [ext_resource type="Script" uid="uid://cqaphtbjhnv0q" path="res://Scripts/ChunkSystem/chunk_manager.gd" id="1_eglq2"]
 [ext_resource type="Texture2D" uid="uid://bsejmi23ch1xy" path="res://icon.svg" id="2_dtjkg"]
-[ext_resource type="Script" uid="uid://dfpwxv7lhufvm" path="res://Scenes/label.gd" id="4_rsyfn"]
+[ext_resource type="PackedScene" uid="uid://dwooqm8mpjjqs" path="res://Prefabs/chunk.tscn" id="4_2yvf5"]
+[ext_resource type="Script" uid="uid://dfpwxv7lhufvm" path="res://Scripts/DebugScripts/label.gd" id="4_rsyfn"]
 [ext_resource type="Script" uid="uid://bt32nbad6jvyw" path="res://Scripts/map_generator_script.gd" id="4_xq3o0"]
 [ext_resource type="Script" uid="uid://bhowhd072vdo7" path="res://Scripts/DebugScripts/PositionDebug.gd" id="5_7w7ni"]
-[ext_resource type="Script" uid="uid://d2r3txa32dnax" path="res://Scenes/CameraDebug.gd" id="6_btda1"]
+[ext_resource type="Script" uid="uid://48n28unnrw7o" path="res://Scripts/DebugScripts/debug_ui_script.gd" id="6_3ihge"]
+[ext_resource type="Script" uid="uid://d2r3txa32dnax" path="res://Scripts/DebugScripts/CameraDebug.gd" id="6_btda1"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xq3o0"]
-frequency = 0.0075
+frequency = 0.0047
 fractal_octaves = 6
 fractal_lacunarity = 1.98
 fractal_gain = 0.56
@@ -29,6 +31,7 @@ can_pan = false
 
 [node name="Camera2D" type="Camera2D" parent="CameraController"]
 zoom = Vector2(0.57, 0.57)
+position_smoothing_enabled = true
 
 [node name="Debug" type="Sprite2D" parent="CameraController"]
 scale = Vector2(0.7, 0.7)
@@ -36,14 +39,19 @@ texture = ExtResource("2_dtjkg")
 
 [node name="ProceduralMap" type="Node2D" parent="."]
 
+[node name="MapGenerator" type="Node" parent="ProceduralMap" node_paths=PackedStringArray("chunk_manager")]
+script = ExtResource("4_xq3o0")
+chunk_manager = NodePath("../ChunkManager")
+terrain_noise_texture = SubResource("NoiseTexture2D_2yvf5")
+water_level = 0.01
+
 [node name="ChunkManager" type="Node2D" parent="ProceduralMap" node_paths=PackedStringArray("chunk_timer", "chunk_focus_point", "map_generator")]
 script = ExtResource("1_eglq2")
+chunk_prefab = ExtResource("4_2yvf5")
 chunk_amount = 10
-chunk_size = 50
 chunk_timer = NodePath("ChunkTimer")
 chunk_focus_point = NodePath("../../CameraController/Debug")
 map_generator = NodePath("../MapGenerator")
-debug_enabled = false
 inactive_chunk_color = Color(0.856494, 3.65794e-06, 8.66354e-07, 0.490196)
 focus_chunk_color = Color(0, 0, 0.956863, 1)
 debug_backdrop = false
@@ -52,12 +60,9 @@ debug_backdrop = false
 wait_time = 0.1
 autostart = true
 
-[node name="MapGenerator" type="Node" parent="ProceduralMap" node_paths=PackedStringArray("chunk_manager")]
-script = ExtResource("4_xq3o0")
-chunk_manager = NodePath("../ChunkManager")
-terrain_noise_texture = SubResource("NoiseTexture2D_2yvf5")
-
-[node name="DEBUG_UI" type="CanvasLayer" parent="."]
+[node name="DEBUG_UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("chunk_manager")]
+script = ExtResource("6_3ihge")
+chunk_manager = NodePath("../ProceduralMap/ChunkManager")
 
 [node name="Control" type="Control" parent="DEBUG_UI"]
 layout_mode = 3
