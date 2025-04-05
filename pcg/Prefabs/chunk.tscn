@@ -1,16 +1,20 @@
-[gd_scene load_steps=6 format=4 uid="uid://dwooqm8mpjjqs"]
+[gd_scene load_steps=8 format=4 uid="uid://dwooqm8mpjjqs"]
 
 [ext_resource type="Script" uid="uid://dfxekrsi0swus" path="res://Scripts/ChunkSystem/chunk_script.gd" id="1_hru86"]
-[ext_resource type="TileSet" uid="uid://d3pbtnjcpcqvk" path="res://Art/Tilsets/TileSet.tres" id="2_hru86"]
+[ext_resource type="TileSet" uid="uid://d3pbtnjcpcqvk" path="res://Art/Tilsets/TerrainTileset.tres" id="2_hru86"]
 [ext_resource type="Script" uid="uid://by3dybadrrlxt" path="res://Prefabs/chunk_water_script.gd" id="3_6ijfl"]
 [ext_resource type="Material" uid="uid://xjeefhb6iy5s" path="res://Art/Material/WaterMaterial.tres" id="3_fg0u5"]
+[ext_resource type="TileSet" uid="uid://bs0youey8v43y" path="res://Art/Tilsets/FolliageTileset.tres" id="3_v7qjv"]
+[ext_resource type="TileSet" uid="uid://g6ookkc5l31i" path="res://Art/Tilsets/ground_folliage_tile_set.tres" id="4_6vmy5"]
 
 [sub_resource type="FontVariation" id="FontVariation_kdh3y"]
 
-[node name="Chunk" type="Node2D" node_paths=PackedStringArray("test_tilemap")]
+[node name="Chunk" type="Node2D" node_paths=PackedStringArray("terrain_tilemap", "folliage_tilemap", "ground_folliage_tilemap")]
 top_level = true
 script = ExtResource("1_hru86")
-test_tilemap = NodePath("ChunkTilemaps/PrototypeTilemapLayer")
+terrain_tilemap = NodePath("ChunkTilemaps/PrototypeTilemapLayer")
+folliage_tilemap = NodePath("ChunkTilemaps/FolliageTilemapLayer")
+ground_folliage_tilemap = NodePath("ChunkTilemaps/GroundFolliageLayer")
 debug_font = SubResource("FontVariation_kdh3y")
 
 [node name="ChunkTilemaps" type="Node2D" parent="."]
@@ -20,8 +24,16 @@ tile_map_data = PackedByteArray("AAD+//3/AAAAAAEAAADn/+f/AAAAAAMAAADn/+j/AAACAAI
 tile_set = ExtResource("2_hru86")
 
 [node name="FolliageTilemapLayer" type="TileMapLayer" parent="ChunkTilemaps"]
+z_index = 2
+y_sort_enabled = true
+tile_set = ExtResource("3_v7qjv")
+
+[node name="GroundFolliageLayer" type="TileMapLayer" parent="ChunkTilemaps"]
+z_index = 1
+tile_set = ExtResource("4_6vmy5")
 
 [node name="Water" type="Node2D" parent="." node_paths=PackedStringArray("chunk")]
+visible = false
 z_index = -1
 material = ExtResource("3_fg0u5")
 script = ExtResource("3_6ijfl")

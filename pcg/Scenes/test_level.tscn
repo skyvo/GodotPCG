@@ -1,30 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://cn8bteq2lx4gp"]
+[gd_scene load_steps=5 format=3 uid="uid://cn8bteq2lx4gp"]
 
 [ext_resource type="Script" uid="uid://cmxest1nulhgn" path="res://Scripts/Player/camera_script.gd" id="1_7w7ni"]
-[ext_resource type="Script" uid="uid://cqaphtbjhnv0q" path="res://Scripts/ChunkSystem/chunk_manager.gd" id="1_eglq2"]
 [ext_resource type="Texture2D" uid="uid://bsejmi23ch1xy" path="res://icon.svg" id="2_dtjkg"]
-[ext_resource type="PackedScene" uid="uid://dwooqm8mpjjqs" path="res://Prefabs/chunk.tscn" id="4_2yvf5"]
-[ext_resource type="Script" uid="uid://dfpwxv7lhufvm" path="res://Scripts/DebugScripts/label.gd" id="4_rsyfn"]
-[ext_resource type="Script" uid="uid://bt32nbad6jvyw" path="res://Scripts/map_generator_script.gd" id="4_xq3o0"]
-[ext_resource type="Script" uid="uid://bhowhd072vdo7" path="res://Scripts/DebugScripts/PositionDebug.gd" id="5_7w7ni"]
-[ext_resource type="Script" uid="uid://48n28unnrw7o" path="res://Scripts/DebugScripts/debug_ui_script.gd" id="6_3ihge"]
-[ext_resource type="Script" uid="uid://d2r3txa32dnax" path="res://Scripts/DebugScripts/CameraDebug.gd" id="6_btda1"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_xq3o0"]
-frequency = 0.0047
-fractal_octaves = 6
-fractal_lacunarity = 1.98
-fractal_gain = 0.56
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2yvf5"]
-noise = SubResource("FastNoiseLite_xq3o0")
+[ext_resource type="PackedScene" uid="uid://c03w12xggyajr" path="res://Prefabs/procedural_map.tscn" id="3_rsyfn"]
+[ext_resource type="PackedScene" uid="uid://bp11l02fudtpg" path="res://Prefabs/UI/UI_Layers/debug_ui_layer.tscn" id="6_btda1"]
 
 [node name="TestLevel" type="Node2D"]
 
 [node name="CameraController" type="Node2D" parent="."]
 script = ExtResource("1_7w7ni")
 movement_speed = 120.0
-zoom_speed = 0.5
+zoom_speed = 1.0
 min_zoom = 0.009
 max_zoom = 4
 can_pan = false
@@ -34,65 +20,20 @@ zoom = Vector2(0.57, 0.57)
 position_smoothing_enabled = true
 
 [node name="Debug" type="Sprite2D" parent="CameraController"]
+visible = false
+z_index = 1
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_dtjkg")
 
-[node name="ProceduralMap" type="Node2D" parent="."]
+[node name="ProceduralMap" parent="." instance=ExtResource("3_rsyfn")]
 
-[node name="MapGenerator" type="Node" parent="ProceduralMap" node_paths=PackedStringArray("chunk_manager")]
-script = ExtResource("4_xq3o0")
-chunk_manager = NodePath("../ChunkManager")
-terrain_noise_texture = SubResource("NoiseTexture2D_2yvf5")
-water_level = 0.01
-
-[node name="ChunkManager" type="Node2D" parent="ProceduralMap" node_paths=PackedStringArray("chunk_timer", "chunk_focus_point", "map_generator")]
-script = ExtResource("1_eglq2")
-chunk_prefab = ExtResource("4_2yvf5")
-chunk_amount = 10
-chunk_timer = NodePath("ChunkTimer")
+[node name="ChunkManager" parent="ProceduralMap" index="1" node_paths=PackedStringArray("chunk_focus_point")]
 chunk_focus_point = NodePath("../../CameraController/Debug")
-map_generator = NodePath("../MapGenerator")
-inactive_chunk_color = Color(0.856494, 3.65794e-06, 8.66354e-07, 0.490196)
-focus_chunk_color = Color(0, 0, 0.956863, 1)
-debug_backdrop = false
+active_chunk_color = Color(0, 1, 0, 0.223529)
+focus_chunk_color = Color(0, 0, 0.956863, 0.14902)
+debug_backdrop = true
 
-[node name="ChunkTimer" type="Timer" parent="ProceduralMap/ChunkManager"]
-wait_time = 0.1
-autostart = true
-
-[node name="DEBUG_UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("chunk_manager")]
-script = ExtResource("6_3ihge")
+[node name="DEBUG_UI" parent="." node_paths=PackedStringArray("chunk_manager") instance=ExtResource("6_btda1")]
 chunk_manager = NodePath("../ProceduralMap/ChunkManager")
 
-[node name="Control" type="Control" parent="DEBUG_UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DEBUG_UI/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="FPSLabel" type="Label" parent="DEBUG_UI/Control/VBoxContainer"]
-layout_mode = 2
-text = "FPS : "
-script = ExtResource("4_rsyfn")
-
-[node name="PositionsLabel" type="Label" parent="DEBUG_UI/Control/VBoxContainer" node_paths=PackedStringArray("chunk_manager")]
-layout_mode = 2
-text = "COORDINATES"
-script = ExtResource("5_7w7ni")
-chunk_manager = NodePath("../../../../ProceduralMap/ChunkManager")
-
-[node name="Label3" type="Label" parent="DEBUG_UI/Control/VBoxContainer" node_paths=PackedStringArray("camera")]
-layout_mode = 2
-text = "FPS : "
-script = ExtResource("6_btda1")
-camera = NodePath("../../../../CameraController/Camera2D")
-
-[connection signal="timeout" from="ProceduralMap/ChunkManager/ChunkTimer" to="ProceduralMap/ChunkManager" method="_on_chunk_timer_timeout"]
+[editable path="ProceduralMap"]

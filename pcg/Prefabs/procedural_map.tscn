@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://c03w12xggyajr"]
+
+[ext_resource type="Script" uid="uid://bt32nbad6jvyw" path="res://Scripts/map_generator_script.gd" id="1_yag0j"]
+[ext_resource type="Script" uid="uid://cqaphtbjhnv0q" path="res://Scripts/ChunkSystem/chunk_manager.gd" id="2_owepf"]
+[ext_resource type="PackedScene" uid="uid://dwooqm8mpjjqs" path="res://Prefabs/chunk.tscn" id="3_2anh7"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xq3o0"]
+frequency = 0.0121
+fractal_octaves = 6
+fractal_lacunarity = 1.98
+fractal_gain = 0.56
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2yvf5"]
+noise = SubResource("FastNoiseLite_xq3o0")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yag0j"]
+frequency = 0.0378
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_owepf"]
+noise = SubResource("FastNoiseLite_yag0j")
+
+[node name="ProceduralMap" type="Node2D"]
+
+[node name="MapGenerator" type="Node" parent="." node_paths=PackedStringArray("chunk_manager")]
+script = ExtResource("1_yag0j")
+chunk_manager = NodePath("../ChunkManager")
+terrain_noise_texture = SubResource("NoiseTexture2D_2yvf5")
+water_level = 0.01
+fertility_noise_texture = SubResource("NoiseTexture2D_owepf")
+
+[node name="ChunkManager" type="Node2D" parent="." node_paths=PackedStringArray("chunk_timer", "map_generator")]
+script = ExtResource("2_owepf")
+chunk_prefab = ExtResource("3_2anh7")
+chunk_amount = 10
+chunk_timer = NodePath("ChunkTimer")
+map_generator = NodePath("../MapGenerator")
+inactive_chunk_color = Color(0.856494, 3.65794e-06, 8.66354e-07, 0.490196)
+focus_chunk_color = Color(0, 0, 0.956863, 1)
+debug_backdrop = false
+
+[node name="ChunkTimer" type="Timer" parent="ChunkManager"]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="ChunkManager/ChunkTimer" to="ChunkManager" method="_on_chunk_timer_timeout"]

@@ -86,14 +86,21 @@ func GetNeighbours():
 
 
 #chunk loading functions
-func GetCameraChunkCoordinates() -> Vector2i:
-	var focus_global_position = chunk_focus_point.global_position
+func GetChunkCoordinates(point_global_position) -> Vector2i:
+	var focus_global_position = point_global_position
 	var coordinates = Vector2((focus_global_position.x ) / chunk_total_size ,(focus_global_position.y )/ chunk_total_size)
-	# -= chunk_total_size/2
-	#coordinates.y -= chunk_total_size/2
 	coordinates.x = snapped(coordinates.x,1 )
 	coordinates.y = snapped(coordinates.y,1 )
 	return coordinates
+
+func GetTileAtPosition(point_global_position):
+	var point_chunk_coordinates = GetChunkCoordinates(point_global_position)
+	var point_chunk : Chunk = chunk_dictionary.get(point_chunk_coordinates)
+	if point_chunk:
+		var tile_coordinates : Vector2 = point_chunk.terrain_tilemap.local_to_map(point_global_position)
+		print(tile_coordinates,point_chunk_coordinates)
+		return tile_coordinates
+	return
 	
 func UpdateVisibleChunks():
 
@@ -101,7 +108,7 @@ func UpdateVisibleChunks():
 	var start = Time.get_ticks_usec()
 	
 	#set coordinates
-	current_visited_chunk_coordinates = GetCameraChunkCoordinates()
+	current_visited_chunk_coordinates = GetChunkCoordinates(chunk_focus_point.global_position)
 	current_visited_chunk = chunk_dictionary.get(current_visited_chunk_coordinates)
 	
 	for chunk : Chunk in chunk_dictionary.values():
@@ -113,7 +120,7 @@ func UpdateVisibleChunks():
 			chunk.is_active = true
 			chunk.UpdateChunk()
 			if !current_generated_chunks.has(chunk):
-					chunk.GenerateTerrain(map_generator.terrain_noise, map_generator)
+					chunk.GenerateTilemap(map_generator.folliage_noise,map_generator.terrain_noise,map_generator)
 					current_generated_chunks.append(chunk)
 		else:
 			chunk.is_active = false
@@ -121,12 +128,9 @@ func UpdateVisibleChunks():
 			#chunk does not need to be loaded and thus qbe set inactive
 			current_loaded_chunks.erase(chunk)
 			chunk.color = inactive_chunk_color
-			
-	
+
 		chunk.queue_redraw()	
-	var end = Time.get_ticks_usec()
-	var function_time = (end - start) / 1000000.0
-	print(function_time)
+	
 	print(current_loaded_chunks.size())
 	pass
 
@@ -144,4 +148,5 @@ func UpdateDebugState():
 		
 func _on_chunk_timer_timeout() -> void:
 	UpdateVisibleChunks()
+	GetTileAtPosition(get_global_mouse_position())
 	pass # Replace with function body.

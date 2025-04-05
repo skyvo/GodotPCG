@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://d2i3g6jblrvo1"]
+
+[ext_resource type="FontFile" uid="uid://bn2o4li0y0jd3" path="res://Art/UI/Fonts/PTSans-Regular.ttf" id="1_mikg4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1rfv"]
+bg_color = Color(0.00733965, 0.00404711, 0.123536, 1)
+
+[resource]
+default_font = ExtResource("1_mikg4")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_g1rfv")

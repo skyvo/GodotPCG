@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://bp11l02fudtpg"]
+
+[ext_resource type="Script" uid="uid://48n28unnrw7o" path="res://Scripts/DebugScripts/debug_ui_script.gd" id="1_5h2rx"]
+[ext_resource type="Theme" uid="uid://d2i3g6jblrvo1" path="res://Art/UI/Themes/base_theme.tres" id="2_tiqbv"]
+
+[node name="DEBUG_UI" type="CanvasLayer" node_paths=PackedStringArray("fps_label", "frametime_label", "position_label")]
+script = ExtResource("1_5h2rx")
+fps_label = NodePath("Control/PanelContainer/VBoxContainer/FPSLabel")
+frametime_label = NodePath("Control/PanelContainer/VBoxContainer/FrametimeLabel")
+position_label = NodePath("Control/PanelContainer/VBoxContainer/PositionsLabel")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme = ExtResource("2_tiqbv")
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+
+[node name="FPSLabel" type="Label" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_tiqbv")
+text = "FPS : "
+
+[node name="FrametimeLabel" type="Label" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_tiqbv")
+text = "AAAH"
+
+[node name="PositionsLabel" type="Label" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_tiqbv")
+text = "COORDINATES"
+
+[node name="ZoomLabel" type="Label" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_tiqbv")
+text = "ZOOM:"
