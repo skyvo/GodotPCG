@@ -5,7 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dwooqm8mpjjqs" path="res://Prefabs/chunk.tscn" id="3_2anh7"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xq3o0"]
-frequency = 0.0121
+noise_type = 3
+frequency = 0.0145
 fractal_octaves = 6
 fractal_lacunarity = 1.98
 fractal_gain = 0.56
@@ -14,7 +15,9 @@ fractal_gain = 0.56
 noise = SubResource("FastNoiseLite_xq3o0")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_yag0j"]
-frequency = 0.0378
+frequency = 0.0202
+fractal_octaves = 4
+fractal_weighted_strength = 0.52
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_owepf"]
 noise = SubResource("FastNoiseLite_yag0j")
@@ -25,7 +28,6 @@ noise = SubResource("FastNoiseLite_yag0j")
 script = ExtResource("1_yag0j")
 chunk_manager = NodePath("../ChunkManager")
 terrain_noise_texture = SubResource("NoiseTexture2D_2yvf5")
-water_level = 0.01
 fertility_noise_texture = SubResource("NoiseTexture2D_owepf")
 
 [node name="ChunkManager" type="Node2D" parent="." node_paths=PackedStringArray("chunk_timer", "map_generator")]

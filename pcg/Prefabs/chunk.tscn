@@ -36,5 +36,6 @@ tile_set = ExtResource("4_6vmy5")
 visible = false
 z_index = -1
 material = ExtResource("3_fg0u5")
+scale = Vector2(1.2, 1.2)
 script = ExtResource("3_6ijfl")
 chunk = NodePath("..")

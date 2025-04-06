@@ -11,7 +11,7 @@ void vertex() {
 
 void fragment() {
 	vec4 noise_col = texture(noise,UV + scroll * TIME);
-	vec4 screen_col = texture(SCREEN_TEXTURE, SCREEN_UV + distortion_strength * noise_col.r);
+	vec4 screen_col = texture(SCREEN_TEXTURE, SCREEN_UV + (distortion_strength ) * noise_col.r);
 	COLOR = screen_col;
 	// Called for every pixel the material is visible on.
 }

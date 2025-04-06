@@ -10,7 +10,7 @@
 [node name="CameraController" type="Node2D" parent="."]
 script = ExtResource("1_7w7ni")
 movement_speed = 120.0
-zoom_speed = 1.0
+zoom_speed = 1.6
 min_zoom = 0.009
 max_zoom = 4
 can_pan = false

@@ -75,7 +75,7 @@ func CalculateFolliageCellType(folliage_noise_value, terrain_noise_value) -> Vec
 		if terrain_noise_value >= water_level + 0.15:
 			if terrain_noise_value <= water_level + 0.20:
 				#dark_grass
-				return(Vector2i(0,0))
+				return(Vector2i(randi_range(0,2),0))
 			#rocks
 			else:
 				if terrain_noise_value >= water_level + 0.30:
@@ -90,15 +90,17 @@ func CalculateFolliageCellType(folliage_noise_value, terrain_noise_value) -> Vec
 						return(Vector2i(5,5))
 				else:
 					#light_grass
-					return(Vector2i(0,0))
+					if folliage_noise_value  >= 0.2:
+						return(Vector2i(5,5))
+					return(Vector2i(randi_range(0,2),0))
 		else:
 			#sand
 			if terrain_noise_value >= water_level +0.1:
 				#dark_sand 
-				return(Vector2i(0,2))
+				return(Vector2i(randi_range(0,2),2))
 			else:
 				#light sand
-				return(Vector2i(5,5))
+					return(Vector2i(5,5))
 	
 func CalculateGroundFolliageType(folliage_noise_value, terrain_noise_value) -> Vector2i:
 	
@@ -138,7 +140,7 @@ func CalculateGroundFolliageType(folliage_noise_value, terrain_noise_value) -> V
 						return(Vector2i(5,5))
 				else:
 					#light_grass
-					if random_number > 3:
+					if random_number > 1:
 						if random_number > 7:
 							if random_number > 9:
 								return(Vector2i(randi_range(2,4),4))
@@ -150,9 +152,11 @@ func CalculateGroundFolliageType(folliage_noise_value, terrain_noise_value) -> V
 			#sand
 			if terrain_noise_value >= water_level +0.1:
 				#dark_sand 
-				return(Vector2i(0,2))
+				return(Vector2i(randi_range(0,4),3))
 			else:
 				#light sand
-				return(Vector2i(5,5))
+		
+				return(Vector2i(randi_range(0,4),3))
+				
 				
 		return(Vector2i(randi_range(0,4),2))

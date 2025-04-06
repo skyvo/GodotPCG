@@ -62,7 +62,7 @@ func GenerateTilemap(fertility_noise : Noise, terrain_noise, mapgenerator : MapG
 			
 			terrain_tilemap.set_cell(Vector2i(x,y),1,terrain_atlas)
 			var r = randi_range(0,10)
-			if r > 8:
+			if r > 6:
 				if folliage_atlas != Vector2i(5,5):
 					folliage_tilemap.set_cell(Vector2i(x,y),0,folliage_atlas)
 			if r > 4:
