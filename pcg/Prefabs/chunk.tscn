@@ -12,10 +12,10 @@
 [node name="Chunk" type="Node2D" node_paths=PackedStringArray("terrain_tilemap", "folliage_tilemap", "ground_folliage_tilemap")]
 top_level = true
 script = ExtResource("1_hru86")
-debug_font = SubResource("FontVariation_kdh3y")
 terrain_tilemap = NodePath("ChunkTilemaps/PrototypeTilemapLayer")
 folliage_tilemap = NodePath("ChunkTilemaps/FolliageTilemapLayer")
 ground_folliage_tilemap = NodePath("ChunkTilemaps/GroundFolliageLayer")
+debug_font = SubResource("FontVariation_kdh3y")
 
 [node name="ChunkTilemaps" type="Node2D" parent="."]
 

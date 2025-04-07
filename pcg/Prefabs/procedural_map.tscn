@@ -31,7 +31,7 @@ noise = SubResource("FastNoiseLite_yag0j")
 
 [sub_resource type="Gradient" id="Gradient_yag0j"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.15, 0.3, 0.4, 0.7, 0.8, 0.95)
+offsets = PackedFloat32Array(0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7)
 colors = PackedColorArray(0.71065, 0.567913, 0.416034, 1, 0.414015, 0.323935, 0.252626, 1, 0.368276, 0.413925, 0.225504, 1, 0.151753, 0.176594, 0.0353293, 1, 0.280468, 0.28998, 0.259159, 1, 0.0728426, 0.0728426, 0.0728426, 1, 1, 1, 1, 1)
 metadata/_snap_enabled = true
 
@@ -40,17 +40,16 @@ metadata/_snap_enabled = true
 [node name="MapGenerator" type="Node" parent="." node_paths=PackedStringArray("chunk_manager")]
 script = ExtResource("1_yag0j")
 chunk_manager = NodePath("../ChunkManager")
-water_level = 0.03
 terrain_noise_texture = SubResource("NoiseTexture2D_2yvf5")
 offset_terrain_noise_texture = SubResource("NoiseTexture2D_2anh7")
 fertility_noise_texture = SubResource("NoiseTexture2D_owepf")
 terrain_ramp = SubResource("Gradient_yag0j")
-dark_sand_tresshold = 0.1
-light_grass_tresshold = 0.175
-dark_grass_tresshold = 0.4
-light_rock_tresshold = 0.5
-dark_rock_tresshold = 0.6
-snow_tresshold = 0.7
+dark_sand_tresshold = 0.07
+light_grass_tresshold = 0.13
+dark_grass_tresshold = 0.3
+light_rock_tresshold = 0.4
+dark_rock_tresshold = 0.55
+snow_tresshold = 0.6
 light_sand_tresshold_color = Color(0.71065, 0.567913, 0.416034, 1)
 dark_sand_tresshold_color = Color(0.414015, 0.323935, 0.252626, 1)
 light_grass_tresshold_color = Color(0.368276, 0.413925, 0.225504, 1)

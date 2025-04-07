@@ -68,7 +68,7 @@ func _ready() -> void:
 func CalculateTerrainCellType(noise_value) -> Vector2i:
 	if noise_value <= water_level:
 		#its water
-		if noise_value <= water_level - 0.2:
+		if noise_value <= water_level - 0.05:
 			if noise_value <= water_level - 0.3:
 				#normal water
 				return(Vector2i(4,3))
@@ -80,33 +80,27 @@ func CalculateTerrainCellType(noise_value) -> Vector2i:
 			return(Vector2i(2,3))
 	else:
 		#its not water
-		if noise_value >=adjusted_light_grass_tresshold:
-			if noise_value <= adjusted_dark_grass_tresshold:
-				#dark_grass
-				return(Vector2i(3,1))
-			#rocks
-			else:
-				if noise_value >= adjusted_light_rock_tresshold:
-					if noise_value >= adjusted_dark_rock_tresshold:
-						#dark rock
-						if noise_value >= adjusted_snow_tresshold:
-							#snow
-							return(Vector2i(4,4))
-						return(Vector2i(3,2))
-					else:
-						#rock
+		if noise_value > adjusted_dark_sand_tresshold:
+			if noise_value >= adjusted_light_grass_tresshold:
+				if noise_value >= adjusted_dark_grass_tresshold:
+					if noise_value >= adjusted_light_rock_tresshold:
+						if noise_value >= adjusted_dark_rock_tresshold:
+							if noise_value >= adjusted_snow_tresshold:
+								#snow
+								return(Vector2i(4,4))
+							#dark rock
+							return(Vector2i(3,2))
+						#light rock
 						return(Vector2i(2,2))
-				else:
-					#light_grass
-					return(Vector2i(2,1))
-		else:
-			#sand
-			if noise_value >= adjusted_dark_sand_tresshold:
-				#dark_sand 
-				return(Vector2i(1,0))
-			else:
-				#light sand
-				return(Vector2i(0,0))
+					#dark_grass
+					return(Vector2i(3,1))
+				#light_grass
+				return(Vector2i(2,1))
+			#dark sand 
+			return(Vector2i(1,0))
+		#light sand
+		return(Vector2i(0,0))
+			
 func CalculateFolliageCellType(folliage_noise_value, terrain_noise_value) -> Vector2i:
 	if terrain_noise_value <= water_level:
 		#its water
@@ -122,35 +116,28 @@ func CalculateFolliageCellType(folliage_noise_value, terrain_noise_value) -> Vec
 			return(Vector2i(5,5))
 	else:
 		#its not water
-		if terrain_noise_value >=adjusted_light_grass_tresshold:
-			if terrain_noise_value <= adjusted_dark_grass_tresshold:
-				#dark_grass
-				return(Vector2i(randi_range(0,2),0))
-			#rocks
-			else:
-				if terrain_noise_value >= adjusted_light_rock_tresshold:
-					if terrain_noise_value >= adjusted_dark_rock_tresshold:
-						#dark rock
-						if terrain_noise_value >= adjusted_snow_tresshold:
-							#snow
+		if terrain_noise_value > adjusted_dark_sand_tresshold:
+			if terrain_noise_value >= adjusted_light_grass_tresshold:
+				if terrain_noise_value >= adjusted_dark_grass_tresshold:
+					if terrain_noise_value >= adjusted_light_rock_tresshold:
+						if terrain_noise_value >= adjusted_dark_rock_tresshold:
+							if terrain_noise_value >= adjusted_snow_tresshold:
+								#snow
+								return(Vector2i(5,5))
+							#dark rock
 							return(Vector2i(5,5))
+						#light rock
 						return(Vector2i(5,5))
-					else:
-						#rock
-						return(Vector2i(5,5))
-				else:
-					#light_grass
-					if folliage_noise_value  >= adjusted_light_grass_tresshold:
-						return(Vector2i(5,5))
+					#dark_grass
 					return(Vector2i(randi_range(0,2),0))
-		else:
-			#sand
-			if terrain_noise_value >= adjusted_dark_sand_tresshold:
-				#dark_sand 
-				return(Vector2i(randi_range(0,2),2))
-			else:
-				#light sand
-					return(Vector2i(5,5))
+				#light_grass
+				return(Vector2i(randi_range(0,2),0))
+			#dark sand 
+			return(Vector2i(randi_range(0,2),2))
+		#light sand
+		return(Vector2i(5,5))
+		
+
 func CalculateGroundFolliageType(folliage_noise_value, terrain_noise_value) -> Vector2i:
 	if terrain_noise_value <= water_level:
 		#its water
@@ -167,45 +154,31 @@ func CalculateGroundFolliageType(folliage_noise_value, terrain_noise_value) -> V
 	else:
 		var random_number : int = randi_range(0,10)
 		#its not water
-		if terrain_noise_value >=adjusted_light_grass_tresshold:
-			if terrain_noise_value <= adjusted_dark_grass_tresshold:
-				#dark_grass
-				if random_number > 9:		
-					return(Vector2i(randi_range(2,4),4))
-				else:			
-					return(Vector2i(0,0))
-			#rocks
-			else:
-				if terrain_noise_value >= adjusted_light_rock_tresshold:
-					if terrain_noise_value >= adjusted_dark_rock_tresshold:
-						#dark rock
-						if terrain_noise_value >= adjusted_snow_tresshold:
-							#snow
+		if terrain_noise_value > adjusted_dark_sand_tresshold:
+			if terrain_noise_value >= adjusted_light_grass_tresshold:
+				if terrain_noise_value >= adjusted_dark_grass_tresshold:
+					if terrain_noise_value >= adjusted_light_rock_tresshold:
+						if terrain_noise_value >= adjusted_dark_rock_tresshold:
+							if terrain_noise_value >= adjusted_snow_tresshold:
+								#snow
+								return(Vector2i(4,5))
+							#dark rock
 							return(Vector2i(5,5))
+						#light rock
 						return(Vector2i(5,5))
-					else:
-						#rock
-						return(Vector2i(5,5))
-				else:
-					#light_grass
-					if random_number > 1:
+					#dark_grass
+					return(Vector2i(randi_range(2,4),randi_range(0,2)))
+				#light_grass
+				if random_number > 1:
 						if random_number > 7:
 							if random_number > 9:
 								return(Vector2i(randi_range(2,4),4))
 							else:
 								return(Vector2i(randi_range(0,4),2))
-					else:	
-						return(Vector2i(randi_range(2,4),randi_range(0,2)))
-		else:			
-			#sand
-			if terrain_noise_value >= adjusted_dark_sand_tresshold:
-				#dark_sand 
-				return(Vector2i(randi_range(0,4),3))
-			else:
-				#light sand
-				return(Vector2i(randi_range(0,4),3))	
-		return(Vector2i(randi_range(0,4),2))
-
+			#dark sand 
+			return(Vector2i(randi_range(0,4),3))
+		#light sand
+		return(Vector2i(randi_range(0,4),3))	
 #offset calculator
 func CalculateNoiseWithOffset(terrain_noise_value, terrain_offset_noise_value)-> float:
 	var new_noise_value = terrain_noise_value + terrain_offset_noise_value
