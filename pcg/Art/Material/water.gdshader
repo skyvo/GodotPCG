@@ -5,7 +5,7 @@ uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear;
 uniform vec2 scroll = vec2(0.05,0.05);
 uniform float distortion_strength : hint_range(-1, 1.0) = 0.1;
 void vertex() {
-	
+
 	// Called for every vertex the material is visible on.
 }
 

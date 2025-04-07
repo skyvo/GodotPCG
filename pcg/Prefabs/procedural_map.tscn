@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c03w12xggyajr"]
+[gd_scene load_steps=11 format=3 uid="uid://c03w12xggyajr"]
 
 [ext_resource type="Script" uid="uid://bt32nbad6jvyw" path="res://Scripts/map_generator_script.gd" id="1_yag0j"]
 [ext_resource type="Script" uid="uid://cqaphtbjhnv0q" path="res://Scripts/ChunkSystem/chunk_manager.gd" id="2_owepf"]
@@ -6,13 +6,20 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xq3o0"]
 noise_type = 3
-frequency = 0.0145
+frequency = 0.0132
 fractal_octaves = 6
 fractal_lacunarity = 1.98
 fractal_gain = 0.56
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2yvf5"]
 noise = SubResource("FastNoiseLite_xq3o0")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_owepf"]
+noise_type = 3
+frequency = 0.0047
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2anh7"]
+noise = SubResource("FastNoiseLite_owepf")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_yag0j"]
 frequency = 0.0202
@@ -22,13 +29,35 @@ fractal_weighted_strength = 0.52
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_owepf"]
 noise = SubResource("FastNoiseLite_yag0j")
 
+[sub_resource type="Gradient" id="Gradient_yag0j"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.15, 0.3, 0.4, 0.7, 0.8, 0.95)
+colors = PackedColorArray(0.71065, 0.567913, 0.416034, 1, 0.414015, 0.323935, 0.252626, 1, 0.368276, 0.413925, 0.225504, 1, 0.151753, 0.176594, 0.0353293, 1, 0.280468, 0.28998, 0.259159, 1, 0.0728426, 0.0728426, 0.0728426, 1, 1, 1, 1, 1)
+metadata/_snap_enabled = true
+
 [node name="ProceduralMap" type="Node2D"]
 
 [node name="MapGenerator" type="Node" parent="." node_paths=PackedStringArray("chunk_manager")]
 script = ExtResource("1_yag0j")
 chunk_manager = NodePath("../ChunkManager")
+water_level = 0.03
 terrain_noise_texture = SubResource("NoiseTexture2D_2yvf5")
+offset_terrain_noise_texture = SubResource("NoiseTexture2D_2anh7")
 fertility_noise_texture = SubResource("NoiseTexture2D_owepf")
+terrain_ramp = SubResource("Gradient_yag0j")
+dark_sand_tresshold = 0.1
+light_grass_tresshold = 0.175
+dark_grass_tresshold = 0.4
+light_rock_tresshold = 0.5
+dark_rock_tresshold = 0.6
+snow_tresshold = 0.7
+light_sand_tresshold_color = Color(0.71065, 0.567913, 0.416034, 1)
+dark_sand_tresshold_color = Color(0.414015, 0.323935, 0.252626, 1)
+light_grass_tresshold_color = Color(0.368276, 0.413925, 0.225504, 1)
+dark_grass_tresshold_color = Color(0.151753, 0.176594, 0.0353293, 1)
+light_rock_tresshold_color = Color(0.280468, 0.28998, 0.259159, 1)
+dark_rock_tresshold_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+snow_tresshold_color = Color(1, 1, 1, 1)
 
 [node name="ChunkManager" type="Node2D" parent="." node_paths=PackedStringArray("chunk_timer", "map_generator")]
 script = ExtResource("2_owepf")

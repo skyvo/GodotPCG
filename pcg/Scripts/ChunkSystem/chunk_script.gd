@@ -50,15 +50,28 @@ func UpdateChunk():
 		folliage_tilemap.visible = false
 		ground_folliage_tilemap.visible = false
 
-func GenerateTilemap(fertility_noise : Noise, terrain_noise, mapgenerator : MapGenerator):
+func GenerateTilemap(fertility_noise : Noise, offset_terrain_noise : Noise, terrain_noise, mapgenerator : MapGenerator):
+	var max : float
+	var min : float
 	for x in range(-chunk_size/2,chunk_size/2):
 		for y in range(-chunk_size/2,chunk_size/2):
 			var terrain_noise_value = terrain_noise.get_noise_2d(x + chunkCoordinates.x*chunk_size,y+ chunkCoordinates.y*chunk_size)
 			var fertility_noise_value = fertility_noise.get_noise_2d(x + chunkCoordinates.x*chunk_size,y+ chunkCoordinates.y*chunk_size)
+			var offset_terrain_noise_value = offset_terrain_noise.get_noise_2d(x + chunkCoordinates.x*chunk_size,y+ chunkCoordinates.y*chunk_size)
+			#offset
+			var new_terrain_noise_value = mapgenerator.CalculateNoiseWithOffset(terrain_noise_value,offset_terrain_noise_value)
 			
-			var terrain_atlas : Vector2i = mapgenerator.CalculateTerrainCellType(terrain_noise_value)
-			var folliage_atlas : Vector2i = mapgenerator.CalculateFolliageCellType(fertility_noise_value,terrain_noise_value)
-			var ground_folliage_atlas : Vector2i = mapgenerator.CalculateGroundFolliageType(fertility_noise_value,terrain_noise_value)
+			var terrain_atlas : Vector2i = mapgenerator.CalculateTerrainCellType(new_terrain_noise_value)
+			var folliage_atlas : Vector2i = mapgenerator.CalculateFolliageCellType(fertility_noise_value,new_terrain_noise_value)
+			var ground_folliage_atlas : Vector2i = mapgenerator.CalculateGroundFolliageType(fertility_noise_value,new_terrain_noise_value)
+			
+			if terrain_noise_value > max:
+				max = terrain_noise_value
+			if terrain_noise_value < min:
+				min = terrain_noise_value
+			
+			
+			
 			
 			terrain_tilemap.set_cell(Vector2i(x,y),1,terrain_atlas)
 			var r = randi_range(0,10)
@@ -69,7 +82,7 @@ func GenerateTilemap(fertility_noise : Noise, terrain_noise, mapgenerator : MapG
 				if folliage_atlas != Vector2i(5,5):
 					ground_folliage_tilemap.set_cell(Vector2i(x,y),0,ground_folliage_atlas)	
 			
-			
+	print(min ," : " , max)		
 func _draw() -> void:
 	chunk_rect  = GetChunkRect()
 	if debug_enabled:

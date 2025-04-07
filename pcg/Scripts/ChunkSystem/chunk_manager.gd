@@ -31,10 +31,6 @@ var current_visited_chunk_coordinates : Vector2i
 
 
 func _ready() -> void:
-	InstantiateChunks()
-	current_visited_chunk = chunk_dictionary.get(Vector2i(1,1))
-	print(chunk_dictionary.get(Vector2i(1,1)))
-	UpdateDebugState()
 	pass
 	
 func InstantiateChunks():
@@ -57,7 +53,6 @@ func InstantiateChunks():
 			
 			#debugshit
 			new_chunk.debug_backdrop = debug_backdrop
-	print(chunk_dictionary.size())
 	
 func GetNeighbours():
 	var neighbours = []
@@ -98,7 +93,6 @@ func GetTileAtPosition(point_global_position):
 	var point_chunk : Chunk = chunk_dictionary.get(point_chunk_coordinates)
 	if point_chunk:
 		var tile_coordinates : Vector2 = point_chunk.terrain_tilemap.local_to_map(point_global_position)
-		print(tile_coordinates,point_chunk_coordinates)
 		return tile_coordinates
 	return
 	
@@ -120,7 +114,7 @@ func UpdateVisibleChunks():
 			chunk.is_active = true
 			chunk.UpdateChunk()
 			if !current_generated_chunks.has(chunk):
-					chunk.GenerateTilemap(map_generator.folliage_noise,map_generator.terrain_noise,map_generator)
+					chunk.GenerateTilemap(map_generator.folliage_noise, map_generator.offset_terrain_noise,map_generator.terrain_noise,map_generator)
 					current_generated_chunks.append(chunk)
 		else:
 			chunk.is_active = false
@@ -131,7 +125,7 @@ func UpdateVisibleChunks():
 
 		chunk.queue_redraw()	
 	
-	print(current_loaded_chunks.size())
+	
 	pass
 
 func GetValidChunks() -> Array [Chunk]:
