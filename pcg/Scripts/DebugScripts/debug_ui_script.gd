@@ -61,7 +61,7 @@ func PositionDebugUI():
 		
 		if new_current_chunk_coordinates != current_chunk_position:
 			current_chunk_position = new_current_chunk_coordinates
-			position_label.text = "CHUNK: " + str(current_chunk_position) + " / TILE: " + str("coming soon lol")
+			position_label.text = "CHUNK: " + str(current_chunk_position) + " / TILE: "
 			
 		
 	pass

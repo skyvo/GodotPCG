@@ -7,4 +7,9 @@ bg_color = Color(0.00733965, 0.00404711, 0.123536, 1)
 
 [resource]
 default_font = ExtResource("1_mikg4")
+default_font_size = 12
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_g1rfv")

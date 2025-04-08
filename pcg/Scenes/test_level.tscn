@@ -10,8 +10,8 @@
 [node name="CameraController" type="Node2D" parent="."]
 script = ExtResource("1_7w7ni")
 movement_speed = 120.0
-zoom_speed = 1.6
-min_zoom = 0.009
+zoom_speed = 2.5
+min_zoom = 0.04
 max_zoom = 4
 can_pan = false
 
@@ -36,4 +36,8 @@ debug_backdrop = true
 [node name="DEBUG_UI" parent="." node_paths=PackedStringArray("chunk_manager") instance=ExtResource("6_btda1")]
 chunk_manager = NodePath("../ProceduralMap/ChunkManager")
 
+[node name="MapGenerationPanel" parent="DEBUG_UI/Control/VBoxContainer" index="1" node_paths=PackedStringArray("map_generator")]
+map_generator = NodePath("../../../../ProceduralMap/MapGenerator")
+
 [editable path="ProceduralMap"]
+[editable path="DEBUG_UI"]

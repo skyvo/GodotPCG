@@ -51,8 +51,11 @@ func UpdateChunk():
 		ground_folliage_tilemap.visible = false
 
 func GenerateTilemap(fertility_noise : Noise, offset_terrain_noise : Noise, terrain_noise, mapgenerator : MapGenerator):
-	var max : float
-	var min : float
+	var max_terrain : float
+	var min_terrain : float
+	var max_folliage : float
+	var min_folliage : float
+	
 	for x in range(-chunk_size/2,chunk_size/2):
 		for y in range(-chunk_size/2,chunk_size/2):
 			var terrain_noise_value = terrain_noise.get_noise_2d(x + chunkCoordinates.x*chunk_size,y+ chunkCoordinates.y*chunk_size)
@@ -65,24 +68,32 @@ func GenerateTilemap(fertility_noise : Noise, offset_terrain_noise : Noise, terr
 			var folliage_atlas : Vector2i = mapgenerator.CalculateFolliageCellType(fertility_noise_value,new_terrain_noise_value)
 			var ground_folliage_atlas : Vector2i = mapgenerator.CalculateGroundFolliageType(fertility_noise_value,new_terrain_noise_value)
 			
-			if terrain_noise_value > max:
-				max = terrain_noise_value
-			if terrain_noise_value < min:
-				min = terrain_noise_value
-			
-			
-			
+			#calculate min and max values
+			#if terrain_noise_value > max_terrain:
+				#max_terrain = terrain_noise_value
+			#if terrain_noise_value < min_terrain:
+				#min_terrain = terrain_noise_value
+			#if fertility_noise_value > max_folliage:
+				#max_folliage = fertility_noise_value
+			#if fertility_noise_value < min_folliage:
+				#min_folliage = fertility_noise_value
 			
 			terrain_tilemap.set_cell(Vector2i(x,y),1,terrain_atlas)
+			
 			var r = randi_range(0,10)
-			if r > 6:
+			if fertility_noise_value > -0.32:
 				if folliage_atlas != Vector2i(5,5):
 					folliage_tilemap.set_cell(Vector2i(x,y),0,folliage_atlas)
-			if r > 4:
+			if fertility_noise_value > -0.41:
 				if folliage_atlas != Vector2i(5,5):
 					ground_folliage_tilemap.set_cell(Vector2i(x,y),0,ground_folliage_atlas)	
-			
-	print(min ," : " , max)		
+	#print("folliage MINMAX : ", min_folliage, "/",max_folliage)
+	
+func Clear():
+	terrain_tilemap.clear()
+	folliage_tilemap.clear()
+	ground_folliage_tilemap.clear()			
+	#print(min ," : " , max)		
 func _draw() -> void:
 	chunk_rect  = GetChunkRect()
 	if debug_enabled:

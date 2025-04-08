@@ -53,7 +53,11 @@ func InstantiateChunks():
 			
 			#debugshit
 			new_chunk.debug_backdrop = debug_backdrop
-	
+func RegenerateChunks():
+	current_generated_chunks.clear()
+	for chunk in chunk_dictionary.values():
+		chunk.Clear()
+	UpdateVisibleChunks()
 func GetNeighbours():
 	var neighbours = []
 	if chunk_dictionary.get(current_visited_chunk_coordinates):

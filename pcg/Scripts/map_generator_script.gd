@@ -52,18 +52,35 @@ var adjusted_snow_tresshold : float
 
 
 func _ready() -> void:
-	terrain_noise = terrain_noise_texture.noise
-	folliage_noise = fertility_noise_texture.noise
-	offset_terrain_noise = offset_terrain_noise_texture.noise
-	
+	SetNoise()
 	SetTresholds()
 	CalculateAdjustedTresholds(tressholds_offsets,terrain_noise)
 	chunk_manager.InstantiateChunks()
 	chunk_manager.current_visited_chunk = chunk_manager.chunk_dictionary.get(Vector2i(1,1))
 	chunk_manager.UpdateDebugState()
-	print("this", adjusted_snow_tresshold, adjusted_light_grass_tresshold)
+	
 	pass # Replace with function body.
 
+#function to set seed
+func SetSeed(new_seed):
+	terrain_noise.seed = new_seed
+	folliage_noise.seed = new_seed
+	offset_terrain_noise.seed = new_seed
+	SetNoise()
+	
+#function to get noise from textures
+func SetNoise():
+	terrain_noise = terrain_noise_texture.noise
+	folliage_noise = fertility_noise_texture.noise
+	offset_terrain_noise = offset_terrain_noise_texture.noise
+	
+#function to regenerate map via chunkmanager
+func RegenerateTerrain(seed : int):
+	var start : float = Time.get_ticks_msec()
+	SetSeed(seed)
+	chunk_manager.RegenerateChunks()
+	var end : float = Time.get_ticks_msec()
+	print("terrain generated in : ",end - start ,"ms")
 #function to get the corresponding tile atlas for the given noise value
 func CalculateTerrainCellType(noise_value) -> Vector2i:
 	if noise_value <= water_level:
@@ -144,13 +161,15 @@ func CalculateGroundFolliageType(folliage_noise_value, terrain_noise_value) -> V
 		if terrain_noise_value <= water_level - 0.2:
 			if terrain_noise_value <= water_level - 0.3:
 				#normal water
+				return(Vector2i(randi_range(0,4),0))
 				return(Vector2i(5,5))
 			else:
 				#deep water
 				return(Vector2i(5,5))
 		else:
 			#shallow water
-			return(Vector2i(5,5))
+			return(Vector2i(randi_range(0,4),1))
+			
 	else:
 		var random_number : int = randi_range(0,10)
 		#its not water
@@ -169,14 +188,19 @@ func CalculateGroundFolliageType(folliage_noise_value, terrain_noise_value) -> V
 					#dark_grass
 					return(Vector2i(randi_range(2,4),randi_range(0,2)))
 				#light_grass
-				if random_number > 1:
+				if random_number > 8:
 						if random_number > 7:
 							if random_number > 9:
-								return(Vector2i(randi_range(2,4),4))
+								return(Vector2i(randi_range(0,4),0))
 							else:
-								return(Vector2i(randi_range(0,4),2))
+								return(Vector2i(randi_range(0,4),1))
+						return(Vector2i(randi_range(0,4),1))
+				return(Vector2i(randi_range(0,4),1))
 			#dark sand 
-			return(Vector2i(randi_range(0,4),3))
+			if folliage_noise_value > -0.35:
+				return(Vector2i(randi_range(0,4),3))
+			else:
+				return(Vector2i(5,5))
 		#light sand
 		return(Vector2i(randi_range(0,4),3))	
 #offset calculator
@@ -225,23 +249,20 @@ func CalculateAdjustedTresholds(tresholds : Array, noise : Noise):
 				max = value
 			elif value < min:
 				min = value
-	print(tresholds.size())
 	for treshold in tresholds.size():
 		var t : float = tresholds[treshold]			
-		print(t)
 		var adjusted_value : float = (t * max) + water_level
 		adjusted_tresholds.append(adjusted_value)
 	adjusted_tressholds_offsets = adjusted_tresholds
 	
 	adjusted_light_sand_tresshold = adjusted_tresholds[0]
-	adjusted_dark_sand_tresshold =adjusted_tresholds[1]
-	adjusted_light_grass_tresshold =adjusted_tresholds[2]
-	adjusted_dark_grass_tresshold =adjusted_tresholds[3]
-	adjusted_light_rock_tresshold =adjusted_tresholds[4]
-	adjusted_dark_rock_tresshold =adjusted_tresholds[5]
-	adjusted_snow_tresshold =adjusted_tresholds[6]
+	adjusted_dark_sand_tresshold = adjusted_tresholds[1]
+	adjusted_light_grass_tresshold = adjusted_tresholds[2]
+	adjusted_dark_grass_tresshold = adjusted_tresholds[3]
+	adjusted_light_rock_tresshold = adjusted_tresholds[4]
+	adjusted_dark_rock_tresshold = adjusted_tresholds[5]
+	adjusted_snow_tresshold = adjusted_tresholds[6]
 	
-	print(adjusted_tressholds_offsets)
 #editor tool
 func on_gradient_bool_chage(value: bool):
 	SetTresholds()

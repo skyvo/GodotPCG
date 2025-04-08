@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu26vr3douy8v"]
+
+[ext_resource type="Script" uid="uid://ctxts1lbwaa4u" path="res://Scripts/UI Scripts/map_generation_ui.gd" id="1_huukx"]
+
+[node name="MapGenerationPanel" type="PanelContainer" node_paths=PackedStringArray("map_seed_inputfield")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_huukx")
+map_seed_inputfield = NodePath("MarginContainer/VBoxContainer/SeedHBoxContainer/SeedLineEdit")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HeaderLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "MAP GENERATION"
+
+[node name="SeedHBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SeedLabel" type="Label" parent="MarginContainer/VBoxContainer/SeedHBoxContainer"]
+layout_mode = 2
+text = "SEED:"
+
+[node name="SeedLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SeedHBoxContainer"]
+layout_mode = 2
+text = "1111"
+placeholder_text = "0000"
+
+[node name="GenerateRandomSeed" type="Button" parent="MarginContainer/VBoxContainer/SeedHBoxContainer"]
+layout_mode = 2
+text = "R
+"
+
+[node name="GenerateButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "generate map "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "SAVE"
+
+[node name="LoadButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "LOAD"
+
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/SeedHBoxContainer/SeedLineEdit" to="." method="_on_seed_line_edit_text_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SeedHBoxContainer/GenerateRandomSeed" to="." method="_on_generate_random_seed_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/GenerateButton" to="." method="_on_generate_button_pressed"]

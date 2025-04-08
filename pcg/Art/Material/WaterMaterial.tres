@@ -11,5 +11,5 @@ noise = SubResource("FastNoiseLite_igktu")
 [resource]
 shader = ExtResource("1_3eq5g")
 shader_parameter/noise = SubResource("NoiseTexture2D_epr4u")
-shader_parameter/scroll = Vector2(0.03, 0.02)
-shader_parameter/distortion_strength = 0.01
+shader_parameter/scroll = Vector2(0, 0)
+shader_parameter/distortion_strength = 4.75e-08
