@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://baby34agn0ve4"
-path="res://.godot/imported/Terrain_Tilemap.png-133c88cf0f34981df294129b6d0cc596.ctex"
+uid="uid://bsejmi23ch1xy"
+path="res://.godot/imported/icon.svg-427eb55e52fced60273495fb85bc2b09.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Terrain_Tilemap.png"
-dest_files=["res://.godot/imported/Terrain_Tilemap.png-133c88cf0f34981df294129b6d0cc596.ctex"]
+source_file="res://Art/Sprites/DebugSprites/icon.svg"
+dest_files=["res://.godot/imported/icon.svg-427eb55e52fced60273495fb85bc2b09.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

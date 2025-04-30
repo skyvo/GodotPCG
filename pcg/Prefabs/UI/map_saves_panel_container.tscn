@@ -1,0 +1,94 @@
+[gd_scene load_steps=7 format=3 uid="uid://djuxl45gwpsvr"]
+
+[ext_resource type="Theme" uid="uid://d2i3g6jblrvo1" path="res://Art/UI/Themes/base_theme.tres" id="1_23xvc"]
+[ext_resource type="Script" uid="uid://cs8nwkxyju2x5" path="res://Prefabs/UI/map_saves_panel_script.gd" id="2_3vhvg"]
+[ext_resource type="PackedScene" uid="uid://5uldqkb33aby" path="res://Prefabs/UI/map_save_ui_element.tscn" id="2_al3yb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nu4cw"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gkkae"]
+bg_color = Color(0.756351, 0, 0.132658, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_23xvc"]
+bg_color = Color(0.678944, 0.678944, 0.678944, 1)
+
+[node name="MapSavesPanelContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(300, 300)
+theme = ExtResource("1_23xvc")
+script = ExtResource("2_3vhvg")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HSeparator" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/HSeparator"]
+layout_mode = 2
+
+[node name="header" type="PanelContainer" parent="MarginContainer/HSeparator/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nu4cw")
+
+[node name="Label" type="Label" parent="MarginContainer/HSeparator/HSplitContainer/header"]
+layout_mode = 2
+text = "SAVED MAPS"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="MarginContainer/HSeparator/HSplitContainer"]
+custom_minimum_size = Vector2(15, 10)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_type_variation = &"FlatButton"
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_gkkae")
+text = "X"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HSeparator"]
+custom_minimum_size = Vector2(130, 300)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HSeparator/ScrollContainer"]
+z_index = 1
+z_as_relative = false
+custom_minimum_size = Vector2(300, 298.03)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_23xvc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MapSaveUIelement" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
+layout_mode = 2
+
+[node name="MapSaveUIelement2" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
+layout_mode = 2
+
+[node name="MapSaveUIelement3" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
+layout_mode = 2
+
+[node name="MapSaveUIelement4" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
+layout_mode = 2
+
+[node name="MapSaveUIelement5" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
+layout_mode = 2
+
+[node name="MapSaveUIelement6" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
+layout_mode = 2
+
+[node name="MapSaveUIelement7" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
+layout_mode = 2
+
+[node name="MapSaveUIelement8" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
+layout_mode = 2
+
+[connection signal="pressed" from="MarginContainer/HSeparator/HSplitContainer/CloseButton" to="." method="_on_close_button_pressed"]

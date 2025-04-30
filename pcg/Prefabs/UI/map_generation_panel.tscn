@@ -54,6 +54,20 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "LOAD"
 
+[node name="MapSavesButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "SAVES
+"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
+
 [connection signal="text_changed" from="MarginContainer/VBoxContainer/SeedHBoxContainer/SeedLineEdit" to="." method="_on_seed_line_edit_text_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SeedHBoxContainer/GenerateRandomSeed" to="." method="_on_generate_random_seed_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/GenerateButton" to="." method="_on_generate_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/MapSavesButton" to="." method="_on_map_saves_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

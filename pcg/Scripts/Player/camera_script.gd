@@ -1,5 +1,5 @@
 extends Node2D
-@onready var camera = self.get_child(0)
+@onready var camera : Camera2D = self.get_child(0)
 
 @export_category("camera settings")
 @export_group("movement")
@@ -19,6 +19,7 @@ var current_zoom
 @export var pan_margin:float = 60
 var pan_direction:float = 0
 
+@export var chunk_manager : ChunkManager
 #flags
 var can_move = true
 @export var can_pan = true
@@ -26,6 +27,7 @@ var is_panning = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	current_zoom = camera.zoom.x
+	PositionConstraint()
 	pass # Replace with function body.
 
 
@@ -34,7 +36,7 @@ func _process(delta):
 	camera_movement(delta)
 	camera_pan(delta)
 	camera_zoom(delta)
-	
+	PositionConstraint()
 	pass
 
 func _unhandled_input(event):
@@ -80,9 +82,11 @@ func camera_pan(delta) ->void:
 func camera_zoom(delta):
 	current_zoom = camera.zoom.x
 	var new_zoom:float = clamp(camera.zoom.x + zoom_speed *  zoom_direction * delta, min_zoom, max_zoom)
-	
-	
-
 	zoom_direction *= camera_zoom_speed_damp
 	camera.zoom = Vector2(new_zoom, new_zoom)
 	pass
+
+func PositionConstraint():
+	var limit : int = (chunk_manager.chunk_amount/2)*(chunk_manager.chunk_size)*(chunk_manager.tile_size)
+	global_position.clamp(Vector2(-limit,-limit),Vector2(limit,limit))
+	

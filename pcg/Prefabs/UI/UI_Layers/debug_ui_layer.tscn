@@ -1,14 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bp11l02fudtpg"]
+[gd_scene load_steps=7 format=3 uid="uid://bp11l02fudtpg"]
 
 [ext_resource type="Script" uid="uid://48n28unnrw7o" path="res://Scripts/DebugScripts/debug_ui_script.gd" id="1_5h2rx"]
+[ext_resource type="Script" uid="uid://b67k7gcevogfl" path="res://Scripts/UI Scripts/notification_manager_script.gd" id="2_5h2rx"]
 [ext_resource type="Theme" uid="uid://d2i3g6jblrvo1" path="res://Art/UI/Themes/base_theme.tres" id="2_tiqbv"]
 [ext_resource type="PackedScene" uid="uid://bu26vr3douy8v" path="res://Prefabs/UI/map_generation_panel.tscn" id="3_jqxvh"]
+[ext_resource type="PackedScene" uid="uid://o01q6hqexy3a" path="res://Prefabs/UI/notification_message.tscn" id="3_s61ow"]
+[ext_resource type="PackedScene" uid="uid://djuxl45gwpsvr" path="res://Prefabs/UI/map_saves_panel_container.tscn" id="6_say0i"]
 
-[node name="DEBUG_UI" type="CanvasLayer" node_paths=PackedStringArray("fps_label", "frametime_label", "position_label")]
-script = ExtResource("1_5h2rx")
-fps_label = NodePath("Control/VBoxContainer/DebugPanel/MarginContainer/VBoxContainer/FPSLabel")
-frametime_label = NodePath("Control/VBoxContainer/DebugPanel/MarginContainer/VBoxContainer/FrametimeLabel")
-position_label = NodePath("Control/VBoxContainer/DebugPanel/MarginContainer/VBoxContainer/PositionsLabel")
+[node name="MAP_EDITOR_UI" type="CanvasLayer"]
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -20,43 +19,95 @@ grow_vertical = 2
 size_flags_horizontal = 0
 theme = ExtResource("2_tiqbv")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="Notifications" type="Control" parent="Control/MarginContainer" node_paths=PackedStringArray("notifications_holder")]
 layout_mode = 2
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 111.0
-offset_bottom = 198.0
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 0
+script = ExtResource("2_5h2rx")
+notification_prefab = ExtResource("3_s61ow")
+notifications_holder = NodePath("VBoxContainer")
 
-[node name="DebugPanel" type="PanelContainer" parent="Control/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/Notifications"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="DebugPanel" type="PanelContainer" parent="Control/MarginContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("fps_label", "frametime_label", "position_label")]
+layout_mode = 2
+script = ExtResource("1_5h2rx")
+fps_label = NodePath("MarginContainer/DebugVbox/FPSLabel")
+frametime_label = NodePath("MarginContainer/DebugVbox/FrametimeLabel")
+position_label = NodePath("MarginContainer/DebugVbox/PositionsLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="DebugVbox" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/DebugPanel"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/DebugPanel/MarginContainer"]
-layout_mode = 2
-
-[node name="FPSLabel" type="Label" parent="Control/VBoxContainer/DebugPanel/MarginContainer/VBoxContainer"]
+[node name="FPSLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer/DebugVbox"]
 layout_mode = 2
 theme = ExtResource("2_tiqbv")
 text = "FPS : "
 
-[node name="FrametimeLabel" type="Label" parent="Control/VBoxContainer/DebugPanel/MarginContainer/VBoxContainer"]
+[node name="CheckButton" type="CheckButton" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer/DebugVbox"]
+layout_mode = 2
+text = "debug enabled"
+
+[node name="FrametimeLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer/DebugVbox"]
 layout_mode = 2
 theme = ExtResource("2_tiqbv")
 text = "AAAH"
 
-[node name="PositionsLabel" type="Label" parent="Control/VBoxContainer/DebugPanel/MarginContainer/VBoxContainer"]
+[node name="PositionsLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer/DebugVbox"]
 layout_mode = 2
 theme = ExtResource("2_tiqbv")
 text = "COORDINATES"
 
-[node name="ZoomLabel" type="Label" parent="Control/VBoxContainer/DebugPanel/MarginContainer/VBoxContainer"]
+[node name="ZoomLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer/DebugVbox"]
 layout_mode = 2
 theme = ExtResource("2_tiqbv")
 text = "ZOOM:"
 
-[node name="MapGenerationPanel" parent="Control/VBoxContainer" instance=ExtResource("3_jqxvh")]
+[node name="MapGenerationPanel" parent="Control/MarginContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("map_saves_panel") instance=ExtResource("3_jqxvh")]
 layout_mode = 2
+map_saves_panel = NodePath("../../MapSavesPanelContainer")
+
+[node name="MapSavesPanelContainer" parent="Control/MarginContainer/HBoxContainer" instance=ExtResource("6_say0i")]
+custom_minimum_size = Vector2(22.99, 176.905)
+layout_mode = 2
+
+[connection signal="toggled" from="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer/DebugVbox/CheckButton" to="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel" method="_on_check_button_toggled"]
+
+[editable path="Control/MarginContainer/HBoxContainer/MapSavesPanelContainer"]

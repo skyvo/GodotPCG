@@ -1,9 +1,9 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://chauw8e812r3g"]
 
-[ext_resource type="Shader" uid="uid://b2l026rk8bbln" path="res://Art/Material/grass_sway.gdshader" id="1_te57j"]
+[ext_resource type="Shader" uid="uid://b2l026rk8bbln" path="res://Art/Shaders/grass_sway.gdshader" id="1_yrruf"]
 
 [resource]
-shader = ExtResource("1_te57j")
+shader = ExtResource("1_yrruf")
 shader_parameter/speed = 2.0
 shader_parameter/minStrength = 0.05
 shader_parameter/maxStrength = 0.069

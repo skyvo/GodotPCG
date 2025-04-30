@@ -1,22 +1,24 @@
 [gd_scene load_steps=5 format=3 uid="uid://cn8bteq2lx4gp"]
 
 [ext_resource type="Script" uid="uid://cmxest1nulhgn" path="res://Scripts/Player/camera_script.gd" id="1_7w7ni"]
-[ext_resource type="Texture2D" uid="uid://bsejmi23ch1xy" path="res://icon.svg" id="2_dtjkg"]
+[ext_resource type="Texture2D" uid="uid://bsejmi23ch1xy" path="res://Art/Sprites/DebugSprites/icon.svg" id="2_dtjkg"]
 [ext_resource type="PackedScene" uid="uid://c03w12xggyajr" path="res://Prefabs/procedural_map.tscn" id="3_rsyfn"]
 [ext_resource type="PackedScene" uid="uid://bp11l02fudtpg" path="res://Prefabs/UI/UI_Layers/debug_ui_layer.tscn" id="6_btda1"]
 
 [node name="TestLevel" type="Node2D"]
 
-[node name="CameraController" type="Node2D" parent="."]
+[node name="CameraController" type="Node2D" parent="." node_paths=PackedStringArray("chunk_manager")]
 script = ExtResource("1_7w7ni")
 movement_speed = 120.0
 zoom_speed = 2.5
-min_zoom = 0.04
+min_zoom = 0.2
 max_zoom = 4
+chunk_manager = NodePath("../ProceduralMap/ChunkManager")
 can_pan = false
 
 [node name="Camera2D" type="Camera2D" parent="CameraController"]
 zoom = Vector2(0.57, 0.57)
+limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="Debug" type="Sprite2D" parent="CameraController"]
@@ -33,11 +35,14 @@ active_chunk_color = Color(0, 1, 0, 0.223529)
 focus_chunk_color = Color(0, 0, 0.956863, 0.14902)
 debug_backdrop = true
 
-[node name="DEBUG_UI" parent="." node_paths=PackedStringArray("chunk_manager") instance=ExtResource("6_btda1")]
-chunk_manager = NodePath("../ProceduralMap/ChunkManager")
+[node name="DEBUG_UI" parent="." instance=ExtResource("6_btda1")]
 
-[node name="MapGenerationPanel" parent="DEBUG_UI/Control/VBoxContainer" index="1" node_paths=PackedStringArray("map_generator")]
-map_generator = NodePath("../../../../ProceduralMap/MapGenerator")
+[node name="DebugPanel" parent="DEBUG_UI/Control/MarginContainer/HBoxContainer/VBoxContainer" index="0" node_paths=PackedStringArray("chunk_manager")]
+chunk_manager = NodePath("../../../../../../ProceduralMap/ChunkManager")
+
+[node name="MapGenerationPanel" parent="DEBUG_UI/Control/MarginContainer/HBoxContainer/VBoxContainer" index="1" node_paths=PackedStringArray("map_generator")]
+map_generator = NodePath("../../../../../../ProceduralMap/MapGenerator")
 
 [editable path="ProceduralMap"]
 [editable path="DEBUG_UI"]
+[editable path="DEBUG_UI/Control/MarginContainer/HBoxContainer/MapSavesPanelContainer"]

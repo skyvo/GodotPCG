@@ -14,12 +14,25 @@ config/name="PCG"
 run/main_scene="uid://drx01otwyte5u"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0.0187324, 0.0349438, 0.0933299, 1)
-config/icon="res://icon.svg"
+config/icon="res://Art/Sprites/DebugSprites/icon.svg"
+
+[autoload]
+
+GlobalNotificationScript="*res://Scripts/GlobalScripts/GlobalNotificationScript.gd"
 
 [display]
 
 window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0
+
+[file_customization]
+
+folder_colors={
+"res://Art/": "red",
+"res://Prefabs/": "yellow",
+"res://Scenes/": "orange",
+"res://Scripts/": "blue"
+}
 
 [input]
 

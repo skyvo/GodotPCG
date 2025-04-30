@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bd0u6dmar51gb"]
+
+[ext_resource type="Shader" uid="uid://7eaay6gu6t26" path="res://Art/Shaders/TileMapTextureShader.gdshader" id="1_cxeo2"]
+[ext_resource type="Texture2D" uid="uid://bncwin8lgo6fw" path="res://Art/Sprites/TileSprites/dirt1.png" id="2_vm33y"]
+
+[resource]
+shader = ExtResource("1_cxeo2")
+shader_parameter/overlay_tex = ExtResource("2_vm33y")
+shader_parameter/scale = 0.005

@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 #setup variables
 @export_group("Setup")
@@ -65,3 +65,12 @@ func PositionDebugUI():
 			
 		
 	pass
+
+func _on_check_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		chunk_manager.debug_enabled = true
+		chunk_manager.UpdateDebugState()
+	else:
+		chunk_manager.debug_enabled = false
+		chunk_manager.UpdateDebugState()
+	pass # Replace with function body.

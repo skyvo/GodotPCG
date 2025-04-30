@@ -41,15 +41,18 @@ func GetChunkRect():
 	
 func UpdateChunk():
 	if is_active:
+		set_process(true)
 		terrain_tilemap.visible = true
 		folliage_tilemap.visible = true
 		ground_folliage_tilemap.visible = true
 		
+		
 	else:
+		
 		terrain_tilemap.visible = false
 		folliage_tilemap.visible = false
 		ground_folliage_tilemap.visible = false
-
+		set_process(false)
 func GenerateTilemap(fertility_noise : Noise, offset_terrain_noise : Noise, terrain_noise, mapgenerator : MapGenerator):
 	var max_terrain : float
 	var min_terrain : float
@@ -79,6 +82,7 @@ func GenerateTilemap(fertility_noise : Noise, offset_terrain_noise : Noise, terr
 				#min_folliage = fertility_noise_value
 			
 			terrain_tilemap.set_cell(Vector2i(x,y),1,terrain_atlas)
+			
 			
 			var r = randi_range(0,10)
 			if fertility_noise_value > -0.32:

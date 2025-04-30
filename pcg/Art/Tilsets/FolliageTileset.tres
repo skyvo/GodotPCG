@@ -1,28 +1,34 @@
 [gd_resource type="TileSet" load_steps=4 format=3 uid="uid://bs0youey8v43y"]
 
-[ext_resource type="Texture2D" uid="uid://bj16co5d1xkus" path="res://Tree_Tilemap.png" id="1_2qe3t"]
+[ext_resource type="Texture2D" uid="uid://bj16co5d1xkus" path="res://Art/Sprites/TileSprites/Tree_Tilemap.png" id="1_2qe3t"]
 [ext_resource type="Material" uid="uid://chauw8e812r3g" path="res://Art/Material/FolliageWindShader.tres" id="1_tt1lf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wuyef"]
 texture = ExtResource("1_2qe3t")
 0:0/size_in_atlas = Vector2i(1, 2)
 0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 8)
 0:0/0/material = ExtResource("1_tt1lf")
 1:0/size_in_atlas = Vector2i(1, 2)
 1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 8)
 1:0/0/material = ExtResource("1_tt1lf")
 2:0/size_in_atlas = Vector2i(1, 2)
 2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, 8)
 2:0/0/material = ExtResource("1_tt1lf")
-0:2/size_in_atlas = Vector2i(1, 2)
-0:2/0 = 0
-0:2/0/material = ExtResource("1_tt1lf")
 1:2/size_in_atlas = Vector2i(1, 2)
 1:2/0 = 0
+1:2/0/texture_origin = Vector2i(0, 8)
 1:2/0/material = ExtResource("1_tt1lf")
 2:2/size_in_atlas = Vector2i(1, 2)
 2:2/0 = 0
+2:2/0/texture_origin = Vector2i(0, 8)
 2:2/0/material = ExtResource("1_tt1lf")
+0:2/size_in_atlas = Vector2i(1, 2)
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, 8)
+0:2/0/material = ExtResource("1_tt1lf")
 
 [resource]
 sources/0 = SubResource("TileSetAtlasSource_wuyef")

@@ -26,11 +26,11 @@ var current_visited_chunk_coordinates : Vector2i
 @export var active_chunk_color : Color = Color.GREEN
 @export var inactive_chunk_color : Color = Color.RED
 @export var focus_chunk_color : Color = Color.BLUE
-
 @export var debug_backdrop : bool = true
-
+@export var debug_outer_edge : bool = true
 
 func _ready() -> void:
+	
 	pass
 	
 func InstantiateChunks():
@@ -58,20 +58,20 @@ func RegenerateChunks():
 	for chunk in chunk_dictionary.values():
 		chunk.Clear()
 	UpdateVisibleChunks()
-func GetNeighbours():
+func GetNeighbours(chunk_coordinates : Vector2i):
 	var neighbours = []
 	if chunk_dictionary.get(current_visited_chunk_coordinates):
 		
-		neighbours.append(Vector2i(current_visited_chunk.chunkCoordinates.x + 1,current_visited_chunk.chunkCoordinates.y))
-		neighbours.append(Vector2i(current_visited_chunk.chunkCoordinates.x - 1,current_visited_chunk.chunkCoordinates.y))
+		neighbours.append(Vector2i(chunk_coordinates.x + 1,chunk_coordinates.y))
+		neighbours.append(Vector2i(chunk_coordinates.x - 1,chunk_coordinates.y))
 		
-		neighbours.append(Vector2i(current_visited_chunk.chunkCoordinates.x + 1,current_visited_chunk.chunkCoordinates.y + 1))
-		neighbours.append(Vector2i(current_visited_chunk.chunkCoordinates.x - 1,current_visited_chunk.chunkCoordinates.y + 1))
-		neighbours.append(Vector2i(current_visited_chunk.chunkCoordinates.x ,current_visited_chunk.chunkCoordinates.y + 1))
+		neighbours.append(Vector2i(chunk_coordinates.x + 1,chunk_coordinates.y + 1))
+		neighbours.append(Vector2i(chunk_coordinates.x - 1,chunk_coordinates.y + 1))
+		neighbours.append(Vector2i(chunk_coordinates.x ,chunk_coordinates.y + 1))
 		
-		neighbours.append(Vector2i(current_visited_chunk.chunkCoordinates.x + 1,current_visited_chunk.chunkCoordinates.y - 1))
-		neighbours.append(Vector2i(current_visited_chunk.chunkCoordinates.x - 1,current_visited_chunk.chunkCoordinates.y - 1))
-		neighbours.append(Vector2i(current_visited_chunk.chunkCoordinates.x ,current_visited_chunk.chunkCoordinates.y - 1))
+		neighbours.append(Vector2i(chunk_coordinates.x + 1,chunk_coordinates.y - 1))
+		neighbours.append(Vector2i(chunk_coordinates.x - 1,chunk_coordinates.y - 1))
+		neighbours.append(Vector2i(chunk_coordinates.x ,chunk_coordinates.y - 1))
 		
 		#check if these positions are valid, if not, remove them
 		for neighbour in neighbours:
@@ -135,7 +135,7 @@ func UpdateVisibleChunks():
 func GetValidChunks() -> Array [Chunk]:
 	var valid_chunks : Array [Chunk]
 	valid_chunks.append(current_visited_chunk)
-	for n in GetNeighbours():
+	for n in GetNeighbours(current_visited_chunk.chunkCoordinates):
 		valid_chunks.append(chunk_dictionary.get(n))
 	return valid_chunks
 #debug handler
@@ -143,7 +143,7 @@ func UpdateDebugState():
 	for chunk : Chunk in chunk_dictionary.values():
 		chunk.debug_enabled = debug_enabled
 		queue_redraw()
-		
+	queue_redraw()	
 func _on_chunk_timer_timeout() -> void:
 	UpdateVisibleChunks()
 	GetTileAtPosition(get_global_mouse_position())

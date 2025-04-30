@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://c03w12xggyajr"]
+[gd_scene load_steps=12 format=3 uid="uid://c03w12xggyajr"]
 
 [ext_resource type="Script" uid="uid://bt32nbad6jvyw" path="res://Scripts/map_generator_script.gd" id="1_yag0j"]
 [ext_resource type="Script" uid="uid://cqaphtbjhnv0q" path="res://Scripts/ChunkSystem/chunk_manager.gd" id="2_owepf"]
 [ext_resource type="PackedScene" uid="uid://dwooqm8mpjjqs" path="res://Prefabs/chunk.tscn" id="3_2anh7"]
+[ext_resource type="Script" uid="uid://dmv2jdirkwe3f" path="res://Scripts/MapSripts/map_save_and_loader_script.gd" id="4_owepf"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xq3o0"]
 noise_type = 3
@@ -45,6 +46,9 @@ terrain_noise_texture = SubResource("NoiseTexture2D_2yvf5")
 offset_terrain_noise_texture = SubResource("NoiseTexture2D_2anh7")
 fertility_noise_texture = SubResource("NoiseTexture2D_owepf")
 terrain_ramp = SubResource("Gradient_yag0j")
+deep_water_resshold = -0.2
+normal_water_tresshold = -0.1
+shallow_water_tresshold = -0.05
 dark_sand_tresshold = 0.07
 light_grass_tresshold = 0.13
 dark_grass_tresshold = 0.3
@@ -65,6 +69,7 @@ chunk_prefab = ExtResource("3_2anh7")
 chunk_amount = 10
 chunk_timer = NodePath("ChunkTimer")
 map_generator = NodePath("../MapGenerator")
+debug_enabled = false
 inactive_chunk_color = Color(0.856494, 3.65794e-06, 8.66354e-07, 0.490196)
 focus_chunk_color = Color(0, 0, 0.956863, 1)
 debug_backdrop = false
@@ -72,5 +77,8 @@ debug_backdrop = false
 [node name="ChunkTimer" type="Timer" parent="ChunkManager"]
 wait_time = 0.1
 autostart = true
+
+[node name="MapSaveAndLoader" type="Node" parent="."]
+script = ExtResource("4_owepf")
 
 [connection signal="timeout" from="ChunkManager/ChunkTimer" to="ChunkManager" method="_on_chunk_timer_timeout"]

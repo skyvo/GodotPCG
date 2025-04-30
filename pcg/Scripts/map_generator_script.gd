@@ -1,4 +1,4 @@
-@tool
+
 extends Node
 class_name MapGenerator
 
@@ -19,12 +19,18 @@ var offset_terrain_noise : Noise
 @export_category("tresholds")
 @export_group("Terrain tresholds")
 @export var terrain_ramp : Gradient
+@export var terrain_water_ramp : Gradient
 var tressholds_offsets : Array [float]
+var water_tressholds_offsets : Array [float]
 #adjusted tressholds to noise values
 var adjusted_tressholds_offsets : Array [float]
 var tressholds_colors : Array [Color]
 #terrain tresshold values
+
 @export_subgroup("Terrain tresholds", "Values")
+@export var deep_water_resshold : float
+@export var normal_water_tresshold : float
+@export var shallow_water_tresshold : float
 @export var light_sand_tresshold : float
 @export var dark_sand_tresshold : float
 @export var light_grass_tresshold : float
@@ -81,17 +87,20 @@ func RegenerateTerrain(seed : int):
 	chunk_manager.RegenerateChunks()
 	var end : float = Time.get_ticks_msec()
 	print("terrain generated in : ",end - start ,"ms")
+	
+	#notification
+	GlobalNotificationScript.NewNotification("MAP GENERATED" + ("in : "+ str(end - start) + "ms"))
 #function to get the corresponding tile atlas for the given noise value
 func CalculateTerrainCellType(noise_value) -> Vector2i:
 	if noise_value <= water_level:
 		#its water
-		if noise_value <= water_level - 0.05:
-			if noise_value <= water_level - 0.3:
+		if noise_value <= water_level + shallow_water_tresshold:
+			if noise_value >= water_level + normal_water_tresshold:
 				#normal water
-				return(Vector2i(4,3))
+				return(Vector2i(3,3))
 			else:
 				#deep water
-				return(Vector2i(3,3))
+				return(Vector2i(4,3))
 		else:
 			#shallow water
 			return(Vector2i(2,3))
