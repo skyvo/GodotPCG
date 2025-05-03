@@ -16,8 +16,9 @@ func _ready() -> void:
 	map_generation_panel.procedural_map_parent = procedural_map_parent
 	
 	save_and_loader_panel.camera_controller = camera_controller
+	save_and_loader_panel.map_save_and_loader = save_and_loader
+	
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

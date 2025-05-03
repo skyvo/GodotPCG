@@ -8,7 +8,7 @@ var camera_controler : CameraControler
 
 @export var map_seed_inputfield : LineEdit
 @export var map_name_inputfield : LineEdit
-@export var map_saves_panel : Control
+@export var map_saves_panel : MapSavesPanel
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -47,6 +47,7 @@ func _on_load_button_pressed() -> void:
 	pass # Replace with function body.
 
 func SetMapLoadPanelVisibility():
+	map_saves_panel.UpdateSaveFilesUI()
 	if map_saves_panel.visible == true:
 		map_saves_panel.visible = false
 		camera_controler.input_enabled = true

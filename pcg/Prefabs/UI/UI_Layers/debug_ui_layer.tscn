@@ -109,6 +109,7 @@ theme = ExtResource("2_tiqbv")
 text = "ZOOM:"
 
 [node name="MapSavesPanelContainer" parent="Control/MarginContainer/HBoxContainer" instance=ExtResource("6_say0i")]
+visible = false
 custom_minimum_size = Vector2(22.99, 176.905)
 layout_mode = 2
 
