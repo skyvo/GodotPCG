@@ -1,0 +1,91 @@
+[gd_scene load_steps=5 format=3 uid="uid://bke4aum7xl1ap"]
+
+[ext_resource type="Script" uid="uid://48n28unnrw7o" path="res://Scripts/DebugScripts/debug_ui_script.gd" id="1_jk87f"]
+[ext_resource type="Theme" uid="uid://d2i3g6jblrvo1" path="res://Art/UI/Themes/base_theme.tres" id="2_cg2wo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cg2wo"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jk87f"]
+bg_color = Color(0.125911, 0.125911, 0.125911, 1)
+
+[node name="DebugPanel" type="PanelContainer" node_paths=PackedStringArray("fps_label", "frametime_label", "position_label", "debug_toggle_container", "debug_profiler_container")]
+theme = ExtResource("2_cg2wo")
+script = ExtResource("1_jk87f")
+fps_label = NodePath("MarginContainer/DebugVbox/DebugProfilerPanel/PerformanceLabels/FPSLabel")
+frametime_label = NodePath("MarginContainer/DebugVbox/DebugProfilerPanel/PerformanceLabels/FrameTimeLabel")
+position_label = NodePath("MarginContainer/DebugVbox/MapInfo/PositionsLabel")
+debug_toggle_container = NodePath("MarginContainer/DebugVbox/VBoxContainer/DebugToggleContainer")
+debug_profiler_container = NodePath("MarginContainer/DebugVbox/DebugProfilerPanel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="DebugVbox" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PerformanceCheckButton" type="CheckButton" parent="MarginContainer/DebugVbox"]
+layout_mode = 2
+text = "show performance"
+
+[node name="DebugProfilerPanel" type="PanelContainer" parent="MarginContainer/DebugVbox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cg2wo")
+
+[node name="PerformanceLabels" type="VBoxContainer" parent="MarginContainer/DebugVbox/DebugProfilerPanel"]
+layout_mode = 2
+
+[node name="FPSLabel" type="Label" parent="MarginContainer/DebugVbox/DebugProfilerPanel/PerformanceLabels"]
+layout_mode = 2
+theme = ExtResource("2_cg2wo")
+text = "FPS : "
+
+[node name="FrameTimeLabel" type="Label" parent="MarginContainer/DebugVbox/DebugProfilerPanel/PerformanceLabels"]
+layout_mode = 2
+theme = ExtResource("2_cg2wo")
+theme_type_variation = &"GraphNodeTitleLabel"
+text = "frame time:"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/DebugVbox"]
+layout_mode = 2
+
+[node name="DebugCheckButton" type="CheckButton" parent="MarginContainer/DebugVbox/VBoxContainer"]
+layout_mode = 2
+text = "debug enabled"
+
+[node name="DebugToggleContainer" type="PanelContainer" parent="MarginContainer/DebugVbox/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jk87f")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/DebugVbox/VBoxContainer/DebugToggleContainer"]
+layout_mode = 2
+
+[node name="ChunkGridCheckButton" type="CheckButton" parent="MarginContainer/DebugVbox/VBoxContainer/DebugToggleContainer/VBoxContainer"]
+layout_mode = 2
+text = "show chunk grid"
+
+[node name="ChunkBGButton" type="CheckButton" parent="MarginContainer/DebugVbox/VBoxContainer/DebugToggleContainer/VBoxContainer"]
+layout_mode = 2
+text = "show chunk backdrop"
+
+[node name="MapInfo" type="VBoxContainer" parent="MarginContainer/DebugVbox"]
+layout_mode = 2
+
+[node name="PositionsLabel" type="Label" parent="MarginContainer/DebugVbox/MapInfo"]
+layout_mode = 2
+theme = ExtResource("2_cg2wo")
+text = "COORDINATES"
+
+[node name="ZoomLabel" type="Label" parent="MarginContainer/DebugVbox/MapInfo"]
+layout_mode = 2
+theme = ExtResource("2_cg2wo")
+text = "ZOOM:"
+
+[connection signal="toggled" from="MarginContainer/DebugVbox/PerformanceCheckButton" to="." method="_on_performance_check_button_toggled"]
+[connection signal="toggled" from="MarginContainer/DebugVbox/VBoxContainer/DebugCheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="MarginContainer/DebugVbox/VBoxContainer/DebugToggleContainer/VBoxContainer/ChunkGridCheckButton" to="." method="_on_chunk_grid_check_button_toggled"]
+[connection signal="toggled" from="MarginContainer/DebugVbox/VBoxContainer/DebugToggleContainer/VBoxContainer/ChunkBGButton" to="." method="_on_chunk_bg_button_toggled"]

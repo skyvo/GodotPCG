@@ -7,6 +7,8 @@ class_name MapSaveAndLoader
 var game_folder_name : String = "Argos"
 var map_save_directory
 
+#flags
+var overwrite_save : bool = false
 
 signal MapDataLoaded(save_map_data : Dictionary)
 

@@ -1,11 +1,15 @@
 extends Control
-
+class_name  DebugPanel
 #setup variables
 @export_group("Setup")
 @export var chunk_manager : ChunkManager
 @export var fps_label : Label
 @export var frametime_label : Label
 @export var position_label : Label
+
+@export var debug_toggle_container : Control
+@export var debug_profiler_container : Control
+
 #profiling variables
 @export_group("ProfilingUI")
 @export var show_profiler_ui : bool = true
@@ -54,6 +58,10 @@ func ProfilingDebugUI():
 			min_fps = current_fps
 		fps_label.text = "FPS: " + str(current_fps) + " / MIN: " + str(min_fps) + " MAX: " + str(max_fps) 
 	
+	var current_frame_time : float = Performance.get_monitor(Performance.TIME_PROCESS)
+	frametime_label.text = "FRAME TIME: " + str(current_frame_time * 1000) + "ms"
+	
+	
 	
 func PositionDebugUI():
 	if chunk_manager:
@@ -68,9 +76,28 @@ func PositionDebugUI():
 
 func _on_check_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
+		debug_toggle_container.visible = true
 		chunk_manager.debug_enabled = true
 		chunk_manager.UpdateDebugState()
 	else:
+		debug_toggle_container.visible = false
 		chunk_manager.debug_enabled = false
 		chunk_manager.UpdateDebugState()
+	pass # Replace with function body.
+
+
+func _on_chunk_grid_check_button_toggled(toggled_on: bool) -> void:
+	chunk_manager.debug_enabled = toggled_on
+	chunk_manager.UpdateDebugState()
+	pass # Replace with function body.
+
+
+func _on_chunk_bg_button_toggled(toggled_on: bool) -> void:
+	chunk_manager.debug_backdrop = toggled_on
+	chunk_manager.UpdateDebugState()
+	pass # Replace with function body.
+
+
+func _on_performance_check_button_toggled(toggled_on: bool) -> void:
+	debug_profiler_container.visible = toggled_on
 	pass # Replace with function body.

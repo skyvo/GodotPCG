@@ -63,6 +63,10 @@ func _on_refresh_button_pressed() -> void:
 	pass # Replace with function body.
 
 func OnSaveDelete(path):
+	print("delete")
+	DirAccess.remove_absolute(map_save_and_loader.map_save_directory + "/" + path + ".map_save")
+	print(map_save_and_loader.map_save_directory + "/" + path)
+	UpdateSaveFilesUI()
 	pass
 	
 func OnSaveLoad(path):

@@ -24,7 +24,7 @@ var pan_direction:float = 0
 
 @export var chunk_manager : ChunkManager
 #flags
-var input_enabled : bool = false
+var input_enabled : bool = true
 var can_zoom:bool = true
 var can_move:bool = true
 @export var can_pan:bool = true

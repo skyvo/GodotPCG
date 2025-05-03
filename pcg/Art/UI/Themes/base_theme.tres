@@ -1,13 +1,30 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://d2i3g6jblrvo1"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://d2i3g6jblrvo1"]
 
 [ext_resource type="FontFile" uid="uid://bn2o4li0y0jd3" path="res://Art/UI/Fonts/PTSans-Regular.ttf" id="1_mikg4"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecmah"]
+bg_color = Color(0.832935, 0.244675, 0.101953, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mikg4"]
+bg_color = Color(0.0728427, 0.0728426, 0.0728426, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udcie"]
+bg_color = Color(0.831373, 0.243137, 0.101961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_my5w3"]
+bg_color = Color(0.00566115, 0.00566115, 0.00566114, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1rfv"]
-bg_color = Color(0.190762, 0.190762, 0.190762, 1)
+bg_color = Color(0.20871, 0.20871, 0.20871, 1)
 
 [resource]
 default_font = ExtResource("1_mikg4")
 default_font_size = 12
+Button/styles/hover = SubResource("StyleBoxFlat_ecmah")
+Button/styles/normal = SubResource("StyleBoxFlat_mikg4")
+CheckButton/styles/normal = null
+LineEdit/styles/focus = SubResource("StyleBoxFlat_udcie")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_my5w3")
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10

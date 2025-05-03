@@ -59,6 +59,10 @@ placeholder_text = "insert name"
 layout_mode = 2
 text = "generate map "
 
+[node name="OverwriteCheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "overwrite this save"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -67,16 +71,11 @@ size_flags_vertical = 4
 [node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "SAVE"
-
-[node name="LoadButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "LOAD"
+text = "SAVE MAP"
 
 [node name="MapSavesButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "SAVES
+text = "OPEN SAVES
 "
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
@@ -89,6 +88,5 @@ text = "Quit
 [connection signal="text_changed" from="MarginContainer/VBoxContainer/MapNameVbox/SeedHBoxContainer3/MapNameLineEdit" to="." method="_on_map_name_line_edit_text_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/GenerateButton" to="." method="_on_generate_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/MapSavesButton" to="." method="_on_map_saves_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

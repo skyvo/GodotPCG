@@ -1,14 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://cn8bteq2lx4gp"]
+[gd_scene load_steps=6 format=3 uid="uid://cn8bteq2lx4gp"]
 
-[ext_resource type="Script" uid="uid://cmxest1nulhgn" path="res://Scripts/Player/camera_script.gd" id="1_7w7ni"]
-[ext_resource type="Texture2D" uid="uid://bsejmi23ch1xy" path="res://Art/Sprites/DebugSprites/icon.svg" id="2_dtjkg"]
-[ext_resource type="PackedScene" uid="uid://c03w12xggyajr" path="res://Prefabs/procedural_map.tscn" id="3_rsyfn"]
-[ext_resource type="PackedScene" uid="uid://bp11l02fudtpg" path="res://Prefabs/UI/UI_Layers/debug_ui_layer.tscn" id="6_btda1"]
+[ext_resource type="Script" uid="uid://cmxest1nulhgn" path="res://Scripts/Player/camera_script.gd" id="1_6kyx1"]
+[ext_resource type="Texture2D" uid="uid://bsejmi23ch1xy" path="res://Art/Sprites/DebugSprites/icon.svg" id="2_ieysn"]
+[ext_resource type="PackedScene" uid="uid://c03w12xggyajr" path="res://Prefabs/procedural_map.tscn" id="3_ne2ls"]
+[ext_resource type="PackedScene" uid="uid://bp11l02fudtpg" path="res://Prefabs/UI/UI_Layers/debug_ui_layer.tscn" id="4_xg5sl"]
+[ext_resource type="PackedScene" uid="uid://jc2dp34ab7kv" path="res://Prefabs/UI/UI_Layers/escape_menu_canvas_layer.tscn" id="5_ieysn"]
 
-[node name="TestLevel" type="Node2D"]
+[node name="MapGeneratorLevel" type="Node2D"]
 
 [node name="CameraController" type="Node2D" parent="." node_paths=PackedStringArray("chunk_manager")]
-script = ExtResource("1_7w7ni")
+script = ExtResource("1_6kyx1")
 movement_speed = 120.0
 zoom_speed = 2.5
 min_zoom = 0.2
@@ -25,9 +26,9 @@ position_smoothing_enabled = true
 visible = false
 z_index = 1
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("2_dtjkg")
+texture = ExtResource("2_ieysn")
 
-[node name="ProceduralMap" parent="." instance=ExtResource("3_rsyfn")]
+[node name="ProceduralMap" parent="." instance=ExtResource("3_ne2ls")]
 
 [node name="ChunkManager" parent="ProceduralMap" index="1" node_paths=PackedStringArray("chunk_focus_point")]
 chunk_focus_point = NodePath("../../CameraController/Debug")
@@ -35,7 +36,10 @@ active_chunk_color = Color(0, 1, 0, 0.223529)
 focus_chunk_color = Color(0, 0, 0.956863, 0.14902)
 debug_backdrop = true
 
-[node name="DEBUG_UI" parent="." node_paths=PackedStringArray("procedural_map_parent", "save_and_loader", "camera_controller") instance=ExtResource("6_btda1")]
+[node name="EscapeMenuCanvasLayer" parent="." instance=ExtResource("5_ieysn")]
+visible = false
+
+[node name="DEBUG_UI" parent="." node_paths=PackedStringArray("procedural_map_parent", "save_and_loader", "camera_controller") instance=ExtResource("4_xg5sl")]
 procedural_map_parent = NodePath("../ProceduralMap")
 save_and_loader = NodePath("../ProceduralMap/MapSaveAndLoader")
 camera_controller = NodePath("../CameraController")

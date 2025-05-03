@@ -1,17 +1,18 @@
 [gd_scene load_steps=8 format=3 uid="uid://bp11l02fudtpg"]
 
-[ext_resource type="Script" uid="uid://48n28unnrw7o" path="res://Scripts/DebugScripts/debug_ui_script.gd" id="1_5h2rx"]
 [ext_resource type="Script" uid="uid://by5unxxd54jqf" path="res://Scripts/UI Scripts/map_editorUI_parent_script.gd" id="1_tjtvf"]
 [ext_resource type="Script" uid="uid://b67k7gcevogfl" path="res://Scripts/UI Scripts/notification_manager_script.gd" id="2_5h2rx"]
 [ext_resource type="Theme" uid="uid://d2i3g6jblrvo1" path="res://Art/UI/Themes/base_theme.tres" id="2_tiqbv"]
 [ext_resource type="PackedScene" uid="uid://bu26vr3douy8v" path="res://Prefabs/UI/map_generation_panel.tscn" id="3_jqxvh"]
 [ext_resource type="PackedScene" uid="uid://o01q6hqexy3a" path="res://Prefabs/UI/notification_message.tscn" id="3_s61ow"]
 [ext_resource type="PackedScene" uid="uid://djuxl45gwpsvr" path="res://Prefabs/UI/map_saves_panel_container.tscn" id="6_say0i"]
+[ext_resource type="PackedScene" uid="uid://bke4aum7xl1ap" path="res://Prefabs/UI/debug_panel.tscn" id="6_tjtvf"]
 
-[node name="MAP_EDITOR_UI" type="CanvasLayer" node_paths=PackedStringArray("map_generation_panel", "save_and_loader_panel")]
+[node name="MAP_EDITOR_UI" type="CanvasLayer" node_paths=PackedStringArray("map_generation_panel", "save_and_loader_panel", "debug_panel")]
 script = ExtResource("1_tjtvf")
 map_generation_panel = NodePath("Control/MarginContainer/HBoxContainer/VBoxContainer/MapGenerationPanel")
 save_and_loader_panel = NodePath("Control/MarginContainer/HBoxContainer/MapSavesPanelContainer")
+debug_panel = NodePath("Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -67,52 +68,12 @@ size_flags_vertical = 0
 layout_mode = 2
 map_saves_panel = NodePath("../../MapSavesPanelContainer")
 
-[node name="DebugPanel" type="PanelContainer" parent="Control/MarginContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("fps_label", "frametime_label", "position_label")]
+[node name="DebugPanel" parent="Control/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource("6_tjtvf")]
 layout_mode = 2
-script = ExtResource("1_5h2rx")
-fps_label = NodePath("MarginContainer/DebugVbox/FPSLabel")
-frametime_label = NodePath("MarginContainer/DebugVbox/FrametimeLabel")
-position_label = NodePath("MarginContainer/DebugVbox/PositionsLabel")
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="DebugVbox" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer"]
-layout_mode = 2
-
-[node name="FPSLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer/DebugVbox"]
-layout_mode = 2
-theme = ExtResource("2_tiqbv")
-text = "FPS : "
-
-[node name="CheckButton" type="CheckButton" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer/DebugVbox"]
-layout_mode = 2
-text = "debug enabled"
-
-[node name="FrametimeLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer/DebugVbox"]
-layout_mode = 2
-theme = ExtResource("2_tiqbv")
-text = "AAAH"
-
-[node name="PositionsLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer/DebugVbox"]
-layout_mode = 2
-theme = ExtResource("2_tiqbv")
-text = "COORDINATES"
-
-[node name="ZoomLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer/DebugVbox"]
-layout_mode = 2
-theme = ExtResource("2_tiqbv")
-text = "ZOOM:"
 
 [node name="MapSavesPanelContainer" parent="Control/MarginContainer/HBoxContainer" instance=ExtResource("6_say0i")]
 visible = false
 custom_minimum_size = Vector2(22.99, 176.905)
 layout_mode = 2
-
-[connection signal="toggled" from="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel/MarginContainer/DebugVbox/CheckButton" to="Control/MarginContainer/HBoxContainer/VBoxContainer/DebugPanel" method="_on_check_button_toggled"]
 
 [editable path="Control/MarginContainer/HBoxContainer/MapSavesPanelContainer"]

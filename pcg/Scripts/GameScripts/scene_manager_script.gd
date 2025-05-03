@@ -21,7 +21,7 @@ func SwitchScene(desired_scene : PackedScene):
 		current_active_scene.queue_free()
 		var new_scene : Node = desired_scene.instantiate()
 		main_node.add_child(new_scene)
-		current_active_scene = current_active_scene
+		current_active_scene = new_scene
 	
 		print("scene switched to ", new_scene)
 	pass

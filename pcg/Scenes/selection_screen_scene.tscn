@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhgp758n3eica"]
+
+[ext_resource type="PackedScene" uid="uid://jc2dp34ab7kv" path="res://Prefabs/UI/UI_Layers/escape_menu_canvas_layer.tscn" id="1_ynxgo"]
+
+[node name="SelectionScreenScene" type="Node2D"]
+
+[node name="EscapeMenuCanvasLayer" parent="." instance=ExtResource("1_ynxgo")]
