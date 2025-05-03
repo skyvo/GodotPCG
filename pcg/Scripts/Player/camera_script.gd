@@ -1,4 +1,5 @@
 extends Node2D
+class_name  CameraControler
 @onready var camera : Camera2D = self.get_child(0)
 
 @export_category("camera settings")
@@ -19,11 +20,15 @@ var current_zoom
 @export var pan_margin:float = 60
 var pan_direction:float = 0
 
+#LOD SYSTEM
+
 @export var chunk_manager : ChunkManager
 #flags
-var can_move = true
-@export var can_pan = true
-var is_panning = true
+var input_enabled : bool = false
+var can_zoom:bool = true
+var can_move:bool = true
+@export var can_pan:bool = true
+var is_panning:bool = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	current_zoom = camera.zoom.x
@@ -33,10 +38,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	camera_movement(delta)
-	camera_pan(delta)
-	camera_zoom(delta)
-	PositionConstraint()
+	if input_enabled:
+		camera_movement(delta)
+		camera_pan(delta)
+		camera_zoom(delta)
+		PositionConstraint()
 	pass
 
 func _unhandled_input(event):
@@ -80,10 +86,11 @@ func camera_pan(delta) ->void:
 		translate(Vector2(0, pan_direction.y * delta * (pan_speed / current_zoom)))
 
 func camera_zoom(delta):
-	current_zoom = camera.zoom.x
-	var new_zoom:float = clamp(camera.zoom.x + zoom_speed *  zoom_direction * delta, min_zoom, max_zoom)
-	zoom_direction *= camera_zoom_speed_damp
-	camera.zoom = Vector2(new_zoom, new_zoom)
+	if can_zoom:
+		current_zoom = camera.zoom.x
+		var new_zoom:float = clamp(camera.zoom.x + zoom_speed *  zoom_direction * delta, min_zoom, max_zoom)
+		zoom_direction *= camera_zoom_speed_damp
+		camera.zoom = Vector2(new_zoom, new_zoom)
 	pass
 
 func PositionConstraint():

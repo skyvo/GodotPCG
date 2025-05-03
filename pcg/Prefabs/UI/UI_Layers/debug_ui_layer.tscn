@@ -1,13 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://bp11l02fudtpg"]
+[gd_scene load_steps=8 format=3 uid="uid://bp11l02fudtpg"]
 
 [ext_resource type="Script" uid="uid://48n28unnrw7o" path="res://Scripts/DebugScripts/debug_ui_script.gd" id="1_5h2rx"]
+[ext_resource type="Script" uid="uid://by5unxxd54jqf" path="res://Scripts/UI Scripts/map_editorUI_parent_script.gd" id="1_tjtvf"]
 [ext_resource type="Script" uid="uid://b67k7gcevogfl" path="res://Scripts/UI Scripts/notification_manager_script.gd" id="2_5h2rx"]
 [ext_resource type="Theme" uid="uid://d2i3g6jblrvo1" path="res://Art/UI/Themes/base_theme.tres" id="2_tiqbv"]
 [ext_resource type="PackedScene" uid="uid://bu26vr3douy8v" path="res://Prefabs/UI/map_generation_panel.tscn" id="3_jqxvh"]
 [ext_resource type="PackedScene" uid="uid://o01q6hqexy3a" path="res://Prefabs/UI/notification_message.tscn" id="3_s61ow"]
 [ext_resource type="PackedScene" uid="uid://djuxl45gwpsvr" path="res://Prefabs/UI/map_saves_panel_container.tscn" id="6_say0i"]
 
-[node name="MAP_EDITOR_UI" type="CanvasLayer"]
+[node name="MAP_EDITOR_UI" type="CanvasLayer" node_paths=PackedStringArray("map_generation_panel", "save_and_loader_panel")]
+script = ExtResource("1_tjtvf")
+map_generation_panel = NodePath("Control/MarginContainer/HBoxContainer/VBoxContainer/MapGenerationPanel")
+save_and_loader_panel = NodePath("Control/MarginContainer/HBoxContainer/MapSavesPanelContainer")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -59,6 +63,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
+[node name="MapGenerationPanel" parent="Control/MarginContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("map_saves_panel") instance=ExtResource("3_jqxvh")]
+layout_mode = 2
+map_saves_panel = NodePath("../../MapSavesPanelContainer")
+
 [node name="DebugPanel" type="PanelContainer" parent="Control/MarginContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("fps_label", "frametime_label", "position_label")]
 layout_mode = 2
 script = ExtResource("1_5h2rx")
@@ -99,10 +107,6 @@ text = "COORDINATES"
 layout_mode = 2
 theme = ExtResource("2_tiqbv")
 text = "ZOOM:"
-
-[node name="MapGenerationPanel" parent="Control/MarginContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("map_saves_panel") instance=ExtResource("3_jqxvh")]
-layout_mode = 2
-map_saves_panel = NodePath("../../MapSavesPanelContainer")
 
 [node name="MapSavesPanelContainer" parent="Control/MarginContainer/HBoxContainer" instance=ExtResource("6_say0i")]
 custom_minimum_size = Vector2(22.99, 176.905)

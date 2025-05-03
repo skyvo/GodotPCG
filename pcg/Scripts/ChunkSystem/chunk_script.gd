@@ -45,10 +45,9 @@ func UpdateChunk():
 		terrain_tilemap.visible = true
 		folliage_tilemap.visible = true
 		ground_folliage_tilemap.visible = true
-		
-		
+
 	else:
-		
+
 		terrain_tilemap.visible = false
 		folliage_tilemap.visible = false
 		ground_folliage_tilemap.visible = false

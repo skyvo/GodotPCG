@@ -9,8 +9,9 @@ var folliage_noise : Noise
 var offset_terrain_noise : Noise
 
 @export_category("Map Settings")
+@export var seed : int = 1234
 @export var water_level : float = 0.0
-
+@export var map_name : String = "Insert Map Name"
 @export_group("Noise Textures")
 @export var terrain_noise_texture : NoiseTexture2D
 @export var offset_terrain_noise_texture : NoiseTexture2D
@@ -67,11 +68,23 @@ func _ready() -> void:
 	
 	pass # Replace with function body.
 
+#function to load map
+func LoadMap(save_map_dictionary : Dictionary):
+	print("rrererere")
+	var mapinfo = save_map_dictionary.get("map_info")
+	var seed = mapinfo.get("map_seed")
+	if seed != null:
+		print(seed) 
+		RegenerateTerrain(seed)
+	else:
+		print("error")
+
 #function to set seed
 func SetSeed(new_seed):
 	terrain_noise.seed = new_seed
 	folliage_noise.seed = new_seed
 	offset_terrain_noise.seed = new_seed
+	seed = new_seed
 	SetNoise()
 	
 #function to get noise from textures

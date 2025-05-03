@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dfxekrsi0swus" path="res://Scripts/ChunkSystem/chunk_script.gd" id="1_hru86"]
 [ext_resource type="TileSet" uid="uid://d3pbtnjcpcqvk" path="res://Art/Tilsets/TerrainTileset.tres" id="2_hru86"]
 [ext_resource type="Script" uid="uid://cwbxgt4kv756k" path="res://Scripts/ChunkSystem/chunk_data.gd" id="2_vspgq"]
-[ext_resource type="Script" uid="uid://by3dybadrrlxt" path="res://Prefabs/chunk_water_script.gd" id="3_6ijfl"]
+[ext_resource type="Script" uid="uid://by3dybadrrlxt" path="res://Scripts/ChunkSystem/chunk_water_script.gd" id="3_6ijfl"]
 [ext_resource type="Material" uid="uid://xjeefhb6iy5s" path="res://Art/Material/WaterMaterial.tres" id="3_fg0u5"]
 [ext_resource type="Material" uid="uid://bd0u6dmar51gb" path="res://Art/Material/TilemapShaderMaterial.tres" id="3_nhio7"]
 [ext_resource type="TileSet" uid="uid://bs0youey8v43y" path="res://Art/Tilsets/FolliageTileset.tres" id="3_v7qjv"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://djuxl45gwpsvr"]
 
 [ext_resource type="Theme" uid="uid://d2i3g6jblrvo1" path="res://Art/UI/Themes/base_theme.tres" id="1_23xvc"]
-[ext_resource type="Script" uid="uid://cs8nwkxyju2x5" path="res://Prefabs/UI/map_saves_panel_script.gd" id="2_3vhvg"]
+[ext_resource type="Script" uid="uid://cs8nwkxyju2x5" path="res://Scripts/UI Scripts/map_saves_panel_script.gd" id="2_3vhvg"]
 [ext_resource type="PackedScene" uid="uid://5uldqkb33aby" path="res://Prefabs/UI/map_save_ui_element.tscn" id="2_al3yb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nu4cw"]
@@ -13,10 +13,12 @@ bg_color = Color(0.756351, 0, 0.132658, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_23xvc"]
 bg_color = Color(0.678944, 0.678944, 0.678944, 1)
 
-[node name="MapSavesPanelContainer" type="PanelContainer"]
+[node name="MapSavesPanelContainer" type="PanelContainer" node_paths=PackedStringArray("save_element_holder")]
 custom_minimum_size = Vector2(300, 300)
 theme = ExtResource("1_23xvc")
 script = ExtResource("2_3vhvg")
+save_element_holder = NodePath("MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer")
+map_save_file_element = ExtResource("2_al3yb")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -28,7 +30,7 @@ theme_override_constants/margin_bottom = 10
 [node name="HSeparator" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/HSeparator"]
+[node name="HSplitContainer" type="HBoxContainer" parent="MarginContainer/HSeparator"]
 layout_mode = 2
 
 [node name="header" type="PanelContainer" parent="MarginContainer/HSeparator/HSplitContainer"]
@@ -40,6 +42,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_nu4cw")
 layout_mode = 2
 text = "SAVED MAPS"
 horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/HSeparator/HSplitContainer"]
+layout_mode = 2
+text = "REFRESH"
 
 [node name="CloseButton" type="Button" parent="MarginContainer/HSeparator/HSplitContainer"]
 custom_minimum_size = Vector2(15, 10)
@@ -65,30 +71,6 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_23xvc")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="MapSaveUIelement" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
-layout_mode = 2
-
-[node name="MapSaveUIelement2" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
-layout_mode = 2
-
-[node name="MapSaveUIelement3" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
-layout_mode = 2
-
-[node name="MapSaveUIelement4" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
-layout_mode = 2
-
-[node name="MapSaveUIelement5" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
-layout_mode = 2
-
-[node name="MapSaveUIelement6" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
-layout_mode = 2
-
-[node name="MapSaveUIelement7" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
-layout_mode = 2
-
-[node name="MapSaveUIelement8" parent="MarginContainer/HSeparator/ScrollContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_al3yb")]
 layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/HSeparator/HSplitContainer/CloseButton" to="." method="_on_close_button_pressed"]

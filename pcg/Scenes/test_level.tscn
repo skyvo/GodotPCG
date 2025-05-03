@@ -35,13 +35,13 @@ active_chunk_color = Color(0, 1, 0, 0.223529)
 focus_chunk_color = Color(0, 0, 0.956863, 0.14902)
 debug_backdrop = true
 
-[node name="DEBUG_UI" parent="." instance=ExtResource("6_btda1")]
+[node name="DEBUG_UI" parent="." node_paths=PackedStringArray("procedural_map_parent", "save_and_loader", "camera_controller") instance=ExtResource("6_btda1")]
+procedural_map_parent = NodePath("../ProceduralMap")
+save_and_loader = NodePath("../ProceduralMap/MapSaveAndLoader")
+camera_controller = NodePath("../CameraController")
 
-[node name="DebugPanel" parent="DEBUG_UI/Control/MarginContainer/HBoxContainer/VBoxContainer" index="0" node_paths=PackedStringArray("chunk_manager")]
+[node name="DebugPanel" parent="DEBUG_UI/Control/MarginContainer/HBoxContainer/VBoxContainer" index="1" node_paths=PackedStringArray("chunk_manager")]
 chunk_manager = NodePath("../../../../../../ProceduralMap/ChunkManager")
-
-[node name="MapGenerationPanel" parent="DEBUG_UI/Control/MarginContainer/HBoxContainer/VBoxContainer" index="1" node_paths=PackedStringArray("map_generator")]
-map_generator = NodePath("../../../../../../ProceduralMap/MapGenerator")
 
 [editable path="ProceduralMap"]
 [editable path="DEBUG_UI"]

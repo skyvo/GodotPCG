@@ -2,11 +2,12 @@
 
 [ext_resource type="Script" uid="uid://ctxts1lbwaa4u" path="res://Scripts/UI Scripts/map_generation_ui.gd" id="1_huukx"]
 
-[node name="MapGenerationPanel" type="PanelContainer" node_paths=PackedStringArray("map_seed_inputfield")]
+[node name="MapGenerationPanel" type="PanelContainer" node_paths=PackedStringArray("map_seed_inputfield", "map_name_inputfield")]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_huukx")
 map_seed_inputfield = NodePath("MarginContainer/VBoxContainer/SeedHBoxContainer/SeedLineEdit")
+map_name_inputfield = NodePath("MarginContainer/VBoxContainer/MapNameVbox/SeedHBoxContainer3/MapNameLineEdit")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -34,6 +35,25 @@ placeholder_text = "0000"
 layout_mode = 2
 text = "R
 "
+
+[node name="MapNameVbox" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SeedHBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MapNameVbox"]
+layout_mode = 2
+
+[node name="MapNameLabel" type="Label" parent="MarginContainer/VBoxContainer/MapNameVbox/SeedHBoxContainer2"]
+layout_mode = 2
+text = "MAP NAME:"
+
+[node name="SeedHBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MapNameVbox"]
+layout_mode = 2
+
+[node name="MapNameLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/MapNameVbox/SeedHBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "default name"
+placeholder_text = "insert name"
 
 [node name="GenerateButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -66,6 +86,7 @@ text = "Quit
 
 [connection signal="text_changed" from="MarginContainer/VBoxContainer/SeedHBoxContainer/SeedLineEdit" to="." method="_on_seed_line_edit_text_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SeedHBoxContainer/GenerateRandomSeed" to="." method="_on_generate_random_seed_pressed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/MapNameVbox/SeedHBoxContainer3/MapNameLineEdit" to="." method="_on_map_name_line_edit_text_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/GenerateButton" to="." method="_on_generate_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]

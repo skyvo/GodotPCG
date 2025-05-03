@@ -19,6 +19,7 @@ config/icon="res://Art/Sprites/DebugSprites/icon.svg"
 [autoload]
 
 GlobalNotificationScript="*res://Scripts/GlobalScripts/GlobalNotificationScript.gd"
+GlobalSceneManagerScript="*res://Scripts/GlobalScripts/GlobalSceneManagerScript.gd"
 
 [display]
 

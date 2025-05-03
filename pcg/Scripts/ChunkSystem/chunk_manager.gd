@@ -29,6 +29,12 @@ var current_visited_chunk_coordinates : Vector2i
 @export var debug_backdrop : bool = true
 @export var debug_outer_edge : bool = true
 
+#LOD SYSTEM
+@export_category("LOD System")
+@export var current_LOD : int = 1
+var min_LOD : int = 1
+var max_LOD : int = 3
+
 func _ready() -> void:
 	
 	pass

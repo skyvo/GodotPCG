@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://c03w12xggyajr"]
+[gd_scene load_steps=13 format=3 uid="uid://c03w12xggyajr"]
 
-[ext_resource type="Script" uid="uid://bt32nbad6jvyw" path="res://Scripts/map_generator_script.gd" id="1_yag0j"]
+[ext_resource type="Script" uid="uid://ctcn3fq4pbqbt" path="res://Scripts/MapSripts/procedural_map_parent_script.gd" id="1_2anh7"]
+[ext_resource type="Script" uid="uid://bt32nbad6jvyw" path="res://Scripts/MapSripts/map_generator_script.gd" id="1_yag0j"]
 [ext_resource type="Script" uid="uid://cqaphtbjhnv0q" path="res://Scripts/ChunkSystem/chunk_manager.gd" id="2_owepf"]
 [ext_resource type="PackedScene" uid="uid://dwooqm8mpjjqs" path="res://Prefabs/chunk.tscn" id="3_2anh7"]
 [ext_resource type="Script" uid="uid://dmv2jdirkwe3f" path="res://Scripts/MapSripts/map_save_and_loader_script.gd" id="4_owepf"]
@@ -37,7 +38,11 @@ offsets = PackedFloat32Array(0, 0.07, 0.13, 0.3, 0.4, 0.55, 0.6)
 colors = PackedColorArray(0.71065, 0.567913, 0.416034, 1, 0.414015, 0.323935, 0.252626, 1, 0.368276, 0.413925, 0.225504, 1, 0.151753, 0.176594, 0.0353293, 1, 0.280468, 0.28998, 0.259159, 1, 0.0728426, 0.0728426, 0.0728426, 1, 1, 1, 1, 1)
 metadata/_snap_enabled = true
 
-[node name="ProceduralMap" type="Node2D"]
+[node name="ProceduralMap" type="Node" node_paths=PackedStringArray("map_generator", "chunk_manager", "save_manager")]
+script = ExtResource("1_2anh7")
+map_generator = NodePath("MapGenerator")
+chunk_manager = NodePath("ChunkManager")
+save_manager = NodePath("MapSaveAndLoader")
 
 [node name="MapGenerator" type="Node" parent="." node_paths=PackedStringArray("chunk_manager")]
 script = ExtResource("1_yag0j")
@@ -78,7 +83,11 @@ debug_backdrop = false
 wait_time = 0.1
 autostart = true
 
-[node name="MapSaveAndLoader" type="Node" parent="."]
+[node name="MapSaveAndLoader" type="Node" parent="." node_paths=PackedStringArray("procedural_map_parent")]
 script = ExtResource("4_owepf")
+procedural_map_parent = NodePath("..")
+
+[node name="MapData" type="Node" parent="."]
 
 [connection signal="timeout" from="ChunkManager/ChunkTimer" to="ChunkManager" method="_on_chunk_timer_timeout"]
+[connection signal="MapDataLoaded" from="MapSaveAndLoader" to="." method="_on_map_data_loaded"]
