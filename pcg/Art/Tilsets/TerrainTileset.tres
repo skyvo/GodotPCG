@@ -1,46 +1,68 @@
 [gd_resource type="TileSet" load_steps=4 format=3 uid="uid://d3pbtnjcpcqvk"]
 
-[ext_resource type="Texture2D" uid="uid://baby34agn0ve4" path="res://Art/Sprites/TileSprites/Terrain_Tilemap.png" id="1_wyxwx"]
-[ext_resource type="Material" uid="uid://bd0u6dmar51gb" path="res://Art/Material/TilemapShaderMaterial.tres" id="1_y6bdb"]
+[ext_resource type="Material" uid="uid://dycl0vyl2xlbq" path="res://Art/Material/GrassTileMaterial.tres" id="2_8n32f"]
+[ext_resource type="Texture2D" uid="uid://crtwf8c50l4by" path="res://Prefabs/MapPrefabs/Terrain_Tilemap.png" id="2_y6bdb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a0kup"]
-texture = ExtResource("1_wyxwx")
+texture = ExtResource("2_y6bdb")
 0:0/0 = 0
+0:0/0/z_index = 1
 1:0/0 = 0
-1:0/0/material = ExtResource("1_y6bdb")
+1:0/0/z_index = 1
 2:0/0 = 0
-2:0/0/material = ExtResource("1_y6bdb")
+2:0/0/z_index = 1
 3:0/0 = 0
-3:0/0/material = ExtResource("1_y6bdb")
+3:0/0/z_index = 1
 4:0/0 = 0
-4:0/0/material = ExtResource("1_y6bdb")
+4:0/0/z_index = 1
 0:1/0 = 0
+0:1/0/z_index = 1
 1:1/0 = 0
+1:1/0/material = ExtResource("2_8n32f")
+1:1/0/z_index = 1
 2:1/0 = 0
+2:1/0/z_index = 1
 3:1/0 = 0
+3:1/0/z_index = 1
 4:1/0 = 0
+4:1/0/z_index = 1
+0:2/next_alternative_id = 2
 0:2/0 = 0
-0:2/0/material = ExtResource("1_y6bdb")
+0:2/0/z_index = 2
+1:2/next_alternative_id = 2
 1:2/0 = 0
+1:2/0/z_index = 2
+2:2/next_alternative_id = 2
 2:2/0 = 0
+2:2/0/z_index = 2
 3:2/0 = 0
+3:2/0/z_index = 2
 4:2/0 = 0
+4:2/0/z_index = 2
 0:3/0 = 0
 0:3/0/modulate = Color(1, 1, 1, 0.231373)
-0:3/0/z_index = -2
+0:3/0/z_index = -1
 1:3/0 = 0
 1:3/0/modulate = Color(1, 1, 1, 0.231373)
-1:3/0/z_index = -2
+1:3/0/z_index = -1
 2:3/0 = 0
 2:3/0/modulate = Color(1, 1, 1, 0.231373)
-2:3/0/z_index = -2
+2:3/0/z_index = -1
 3:3/0 = 0
 3:3/0/modulate = Color(1, 1, 1, 0.231373)
-3:3/0/z_index = -2
+3:3/0/z_index = -1
 4:3/0 = 0
 4:3/0/modulate = Color(1, 1, 1, 0.231373)
-4:3/0/z_index = -2
+4:3/0/z_index = -1
 4:4/0 = 0
+0:4/0 = 0
+0:4/0/z_index = -1
+1:4/0 = 0
+1:4/0/z_index = -1
+2:4/0 = 0
+2:4/0/z_index = -1
+3:4/0 = 0
+3:4/0/z_index = -1
 
 [resource]
 sources/1 = SubResource("TileSetAtlasSource_a0kup")

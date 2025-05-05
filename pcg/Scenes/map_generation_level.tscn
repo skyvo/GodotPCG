@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cmxest1nulhgn" path="res://Scripts/Player/camera_script.gd" id="1_6kyx1"]
 [ext_resource type="Texture2D" uid="uid://bsejmi23ch1xy" path="res://Art/Sprites/DebugSprites/icon.svg" id="2_ieysn"]
-[ext_resource type="PackedScene" uid="uid://c03w12xggyajr" path="res://Prefabs/procedural_map.tscn" id="3_ne2ls"]
+[ext_resource type="PackedScene" uid="uid://c03w12xggyajr" path="res://Prefabs/MapPrefabs/procedural_map.tscn" id="3_ne2ls"]
 [ext_resource type="PackedScene" uid="uid://bp11l02fudtpg" path="res://Prefabs/UI/UI_Layers/debug_ui_layer.tscn" id="4_xg5sl"]
 [ext_resource type="PackedScene" uid="uid://jc2dp34ab7kv" path="res://Prefabs/UI/UI_Layers/escape_menu_canvas_layer.tscn" id="5_ieysn"]
 
@@ -31,6 +31,7 @@ texture = ExtResource("2_ieysn")
 [node name="ProceduralMap" parent="." instance=ExtResource("3_ne2ls")]
 
 [node name="ChunkManager" parent="ProceduralMap" index="1" node_paths=PackedStringArray("chunk_focus_point")]
+z_index = 3
 chunk_focus_point = NodePath("../../CameraController/Debug")
 active_chunk_color = Color(0, 1, 0, 0.223529)
 focus_chunk_color = Color(0, 0, 0.956863, 0.14902)

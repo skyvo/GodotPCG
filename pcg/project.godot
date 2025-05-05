@@ -20,6 +20,7 @@ config/icon="res://Art/Sprites/DebugSprites/icon.svg"
 
 GlobalNotificationScript="*res://Scripts/GlobalScripts/GlobalNotificationScript.gd"
 GlobalSceneManagerScript="*res://Scripts/GlobalScripts/GlobalSceneManagerScript.gd"
+GlobalPoissonDiscSampler="*res://addons/PoissonDiscSampling/poisson_disc_sampling.gd"
 
 [display]
 
@@ -32,7 +33,8 @@ folder_colors={
 "res://Art/": "red",
 "res://Prefabs/": "yellow",
 "res://Scenes/": "orange",
-"res://Scripts/": "blue"
+"res://Scripts/": "blue",
+"res://addons/": "gray"
 }
 
 [input]

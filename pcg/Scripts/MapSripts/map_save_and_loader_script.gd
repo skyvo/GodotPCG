@@ -28,7 +28,6 @@ func SaveMap(map_name : String):
 	pass
 
 func LoadMap(map_name):
-	print("test")
 	var save_dict : Dictionary 
 	if not FileAccess.file_exists(map_save_directory +  "/" + map_name + ".map_save"):
 		print("file does not exist")
@@ -42,7 +41,6 @@ func LoadMap(map_name):
 		print("no dictionary")
 		pass
 	else:
-		print("dit werkt")
 		MapDataLoaded.emit(save_map_dictionary)
 	
 func SetMapDictionary() -> Dictionary:

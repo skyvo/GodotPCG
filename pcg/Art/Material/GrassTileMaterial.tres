@@ -1,0 +1,28 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://dycl0vyl2xlbq"]
+
+[ext_resource type="Shader" uid="uid://das622gfqd486" path="res://Art/Shaders/TileMapDecal.gdshader" id="1_s512v"]
+
+[sub_resource type="Gradient" id="Gradient_808pg"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.028169, 0.584507)
+colors = PackedColorArray(0.776471, 0.721569, 0.345098, 1, 0.637732, 0.588809, 0.251778, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ly7pb"]
+noise_type = 0
+frequency = 0.0055
+fractal_octaves = 1
+fractal_lacunarity = 2.275
+fractal_gain = 0.59
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ckpxm"]
+width = 500
+height = 500
+seamless = true
+color_ramp = SubResource("Gradient_808pg")
+noise = SubResource("FastNoiseLite_ly7pb")
+
+[resource]
+shader = ExtResource("1_s512v")
+shader_parameter/noise = SubResource("NoiseTexture2D_ckpxm")
+shader_parameter/displayDecal = false

@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=4 format=3 uid="uid://g6ookkc5l31i"]
 
 [ext_resource type="Texture2D" uid="uid://dpl866gmfsogl" path="res://Art/Sprites/TileSprites/groundFoliageSpriteSheet.png" id="1_0dsgp"]
-[ext_resource type="Material" uid="uid://dt0eatggh4xjv" path="res://Art/Material/GrassWindShader.tres" id="1_u3t7k"]
+[ext_resource type="Material" uid="uid://dt0eatggh4xjv" path="res://Art/Shaders/GrassWindShader.tres" id="1_u3t7k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u3t7k"]
 texture = ExtResource("1_0dsgp")

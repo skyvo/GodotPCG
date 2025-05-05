@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://ctcn3fq4pbqbt" path="res://Scripts/MapSripts/procedural_map_parent_script.gd" id="1_2anh7"]
 [ext_resource type="Script" uid="uid://bt32nbad6jvyw" path="res://Scripts/MapSripts/map_generator_script.gd" id="1_yag0j"]
 [ext_resource type="Script" uid="uid://cqaphtbjhnv0q" path="res://Scripts/ChunkSystem/chunk_manager.gd" id="2_owepf"]
-[ext_resource type="PackedScene" uid="uid://dwooqm8mpjjqs" path="res://Prefabs/chunk.tscn" id="3_2anh7"]
+[ext_resource type="PackedScene" uid="uid://dwooqm8mpjjqs" path="res://Prefabs/MapPrefabs/chunk.tscn" id="3_2anh7"]
+[ext_resource type="Gradient" uid="uid://dj2y883ne4joo" path="res://Prefabs/TerrainRamp.tres" id="3_i5gwq"]
 [ext_resource type="Script" uid="uid://dmv2jdirkwe3f" path="res://Scripts/MapSripts/map_save_and_loader_script.gd" id="4_owepf"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xq3o0"]
@@ -32,12 +33,6 @@ fractal_weighted_strength = 0.52
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_owepf"]
 noise = SubResource("FastNoiseLite_yag0j")
 
-[sub_resource type="Gradient" id="Gradient_yag0j"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.07, 0.13, 0.3, 0.4, 0.55, 0.6)
-colors = PackedColorArray(0.71065, 0.567913, 0.416034, 1, 0.414015, 0.323935, 0.252626, 1, 0.368276, 0.413925, 0.225504, 1, 0.151753, 0.176594, 0.0353293, 1, 0.280468, 0.28998, 0.259159, 1, 0.0728426, 0.0728426, 0.0728426, 1, 1, 1, 1, 1)
-metadata/_snap_enabled = true
-
 [node name="ProceduralMap" type="Node" node_paths=PackedStringArray("map_generator", "chunk_manager", "save_manager")]
 script = ExtResource("1_2anh7")
 map_generator = NodePath("MapGenerator")
@@ -50,7 +45,7 @@ chunk_manager = NodePath("../ChunkManager")
 terrain_noise_texture = SubResource("NoiseTexture2D_2yvf5")
 offset_terrain_noise_texture = SubResource("NoiseTexture2D_2anh7")
 fertility_noise_texture = SubResource("NoiseTexture2D_owepf")
-terrain_ramp = SubResource("Gradient_yag0j")
+terrain_ramp = ExtResource("3_i5gwq")
 deep_water_resshold = -0.2
 normal_water_tresshold = -0.1
 shallow_water_tresshold = -0.05

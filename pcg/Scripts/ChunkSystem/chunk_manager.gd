@@ -148,6 +148,7 @@ func GetValidChunks() -> Array [Chunk]:
 func UpdateDebugState():
 	for chunk : Chunk in chunk_dictionary.values():
 		chunk.debug_enabled = debug_enabled
+		chunk.debug_backdrop = debug_backdrop
 		queue_redraw()
 	queue_redraw()	
 func _on_chunk_timer_timeout() -> void:

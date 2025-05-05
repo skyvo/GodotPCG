@@ -5,9 +5,14 @@ class_name Chunk
 var tile_size : int = 16
 var chunk_size : int = 50
 var chunk_rect: Rect2i
+
+@export_category("Tilemap Layers")
 @export var terrain_tilemap : TileMapLayer
 @export var folliage_tilemap : TileMapLayer
 @export var ground_folliage_tilemap : TileMapLayer
+
+@export_category("TextureLayers")
+@export var water_layer : WaterLayer
 var color : Color 
 
 #chunk variables
@@ -17,9 +22,19 @@ var is_active : bool = false
 #debug variables
 var debug_backdrop : bool = true
 var debug_enabled : bool = true
+@export_category("Debug")
 @export var debug_font : Font
+
+@export var posion_disc_sampler : PoisonDiscSampler
 # Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
+	
+	#setup
+	posion_disc_sampler.chunk = self
+	posion_disc_sampler.rect = chunk_rect
+	chunk_rect.size = chunk_rect.size - Vector2i(16,16)
+	water_layer.chunk = self
 	queue_redraw()
 	pass # Replace with function body.
 
@@ -42,15 +57,10 @@ func GetChunkRect():
 func UpdateChunk():
 	if is_active:
 		set_process(true)
-		terrain_tilemap.visible = true
-		folliage_tilemap.visible = true
-		ground_folliage_tilemap.visible = true
+		visible = true
 
 	else:
-
-		terrain_tilemap.visible = false
-		folliage_tilemap.visible = false
-		ground_folliage_tilemap.visible = false
+		visible = false
 		set_process(false)
 func GenerateTilemap(fertility_noise : Noise, offset_terrain_noise : Noise, terrain_noise, mapgenerator : MapGenerator):
 	var max_terrain : float

@@ -30,6 +30,7 @@ layout_mode = 2
 
 [node name="PerformanceCheckButton" type="CheckButton" parent="MarginContainer/DebugVbox"]
 layout_mode = 2
+button_pressed = true
 text = "show performance"
 
 [node name="DebugProfilerPanel" type="PanelContainer" parent="MarginContainer/DebugVbox"]
@@ -55,9 +56,10 @@ layout_mode = 2
 
 [node name="DebugCheckButton" type="CheckButton" parent="MarginContainer/DebugVbox/VBoxContainer"]
 layout_mode = 2
-text = "debug enabled"
+text = "show chunk debug"
 
 [node name="DebugToggleContainer" type="PanelContainer" parent="MarginContainer/DebugVbox/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jk87f")
 
@@ -66,10 +68,12 @@ layout_mode = 2
 
 [node name="ChunkGridCheckButton" type="CheckButton" parent="MarginContainer/DebugVbox/VBoxContainer/DebugToggleContainer/VBoxContainer"]
 layout_mode = 2
+button_pressed = true
 text = "show chunk grid"
 
 [node name="ChunkBGButton" type="CheckButton" parent="MarginContainer/DebugVbox/VBoxContainer/DebugToggleContainer/VBoxContainer"]
 layout_mode = 2
+button_pressed = true
 text = "show chunk backdrop"
 
 [node name="MapInfo" type="VBoxContainer" parent="MarginContainer/DebugVbox"]

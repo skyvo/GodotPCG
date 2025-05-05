@@ -8,6 +8,7 @@ var terrain_noise : Noise
 var folliage_noise : Noise 
 var offset_terrain_noise : Noise
 
+@export var tileset : TileSet
 @export_category("Map Settings")
 @export var seed : int = 1234
 @export var water_level : float = 0.0
@@ -67,10 +68,9 @@ func _ready() -> void:
 	chunk_manager.UpdateDebugState()
 	
 	pass # Replace with function body.
-
+	
 #function to load map
 func LoadMap(save_map_dictionary : Dictionary):
-	print("rrererere")
 	var mapinfo = save_map_dictionary.get("map_info")
 	var seed = mapinfo.get("map_seed")
 	if seed != null:
@@ -110,13 +110,13 @@ func CalculateTerrainCellType(noise_value) -> Vector2i:
 		if noise_value <= water_level + shallow_water_tresshold:
 			if noise_value >= water_level + normal_water_tresshold:
 				#normal water
-				return(Vector2i(3,3))
+				return(Vector2i(1,4))
 			else:
 				#deep water
-				return(Vector2i(4,3))
+				return(Vector2i(2,4))
 		else:
 			#shallow water
-			return(Vector2i(2,3))
+			return(Vector2i(0,4))
 	else:
 		#its not water
 		if noise_value > adjusted_dark_sand_tresshold:

@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://dglwom7mh871" path="res://Scripts/UI Scripts/escape_menu_script.gd" id="1_8x8rn"]
 [ext_resource type="Theme" uid="uid://d2i3g6jblrvo1" path="res://Art/UI/Themes/base_theme.tres" id="2_rmbbv"]
 
-[node name="EscapeMenuCanvasLayer" type="CanvasLayer"]
+[node name="EscapeMenuCanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("panel")]
 script = ExtResource("1_8x8rn")
+panel = NodePath("Control")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -22,7 +23,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0.501961)
+color = Color(1, 1, 1, 0.203922)
 
 [node name="EscapePanelContainer" type="PanelContainer" parent="Control"]
 custom_minimum_size = Vector2(240, 0)
@@ -46,7 +47,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Control/EscapePanelContainer/VBoxContainer/Header"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 26
 text = "PROJECT ARGOS"
 
 [node name="ResumeButton" type="Button" parent="Control/EscapePanelContainer/VBoxContainer"]

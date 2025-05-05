@@ -1,5 +1,5 @@
 extends CanvasLayer
-
+@export var panel : Control
 func _ready() -> void:
 	visible = false
 	
@@ -9,8 +9,10 @@ func _physics_process(delta: float) -> void:
 			visible = false
 		else:
 			visible = true
-	
 
+
+
+		
 func _on_quit_game_button_pressed() -> void:
 	get_tree().quit()
 	pass # Replace with function body.

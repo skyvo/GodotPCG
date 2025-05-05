@@ -18,7 +18,7 @@ float getWind(vec2 vertex, vec2 uv, float timer){
 	float diff = pow(maxStrength - minStrength, 2.0);
 	float strength = clamp(minStrength + diff + sin(time / interval) * diff, minStrength, maxStrength) * strengthScale;
 	float wind = (sin(time) + cos(time * detail)) * strength * max(0.0, (1.0-uv.y) - heightOffset);
-	
+
 	return wind;
 	}
 

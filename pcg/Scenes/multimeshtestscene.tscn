@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bp800upeb6iae"]
 
 [ext_resource type="Script" uid="uid://dx3wphjsk6lkb" path="res://Scripts/TestScripts/mutimesh2dtestscript.gd" id="1_jxnth"]
-[ext_resource type="Texture2D" uid="uid://bsejmi23ch1xy" path="res://Art/Sprites/DebugSprites/icon.svg" id="2_7urg1"]
+[ext_resource type="Texture2D" uid="uid://t0oa128wved4" path="res://Art/Sprites/TileSprites/WhiteTile.png" id="2_7urg1"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_jxnth"]
 size = Vector2(64, 64)
@@ -16,8 +16,10 @@ script = ExtResource("1_jxnth")
 multimesh2d = NodePath("MultiMeshInstance2D")
 
 [node name="MultiMeshInstance2D" type="MultiMeshInstance2D" parent="."]
+position = Vector2(0, 11)
 multimesh = SubResource("MultiMesh_7urg1")
 texture = ExtResource("2_7urg1")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.01, 0.01)
+position = Vector2(-91, 80)
+zoom = Vector2(0.995, 0.995)
