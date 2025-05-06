@@ -11,6 +11,9 @@ var chunk_rect: Rect2i
 @export var folliage_tilemap : TileMapLayer
 @export var ground_folliage_tilemap : TileMapLayer
 
+@export_category("Overlay Meshes")
+@export var fertility_overlay_mesh : Node2D
+
 @export_category("TextureLayers")
 @export var water_layer : WaterLayer
 var color : Color 

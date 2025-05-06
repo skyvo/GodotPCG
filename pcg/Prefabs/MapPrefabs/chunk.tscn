@@ -42,7 +42,7 @@ tile_map_data = PackedByteArray("AAD+//3/AAAAAAEAAADn/+f/AAAAAAMAAADn/+j/AAACAAI
 tile_set = ExtResource("2_hru86")
 
 [node name="FolliageTilemapLayer" type="TileMapLayer" parent="ChunkTilemaps"]
-z_index = 1
+z_index = 2
 z_as_relative = false
 y_sort_enabled = true
 tile_set = ExtResource("3_v7qjv")
@@ -55,7 +55,7 @@ tile_set = ExtResource("4_6vmy5")
 [node name="Water" type="Node2D" parent="."]
 z_as_relative = false
 script = ExtResource("3_6ijfl")
-water_color = Color(0.176093, 0.567442, 0.825302, 1)
+water_color = Color(0.047754, 0.28329, 0.430999, 1)
 water_opacity = 0.7
 
 [node name="PoisonDiscSampler" type="Node2D" parent="." node_paths=PackedStringArray("chunk", "polygon_2d", "multimesh_2d")]

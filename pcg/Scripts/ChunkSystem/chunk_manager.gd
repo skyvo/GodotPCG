@@ -115,6 +115,8 @@ func UpdateVisibleChunks():
 	current_visited_chunk_coordinates = GetChunkCoordinates(chunk_focus_point.global_position)
 	current_visited_chunk = chunk_dictionary.get(current_visited_chunk_coordinates)
 	
+	if !current_visited_chunk:
+		return
 	for chunk : Chunk in chunk_dictionary.values():
 		if GetValidChunks().has(chunk):
 			if chunk == current_visited_chunk:

@@ -13,7 +13,7 @@ var DOWN_LEFT : Vector2
 var DOWN_RIGHT : Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	GeneratePoints()
+	
 	pass # Replace with function body.
 
 
@@ -35,8 +35,11 @@ func GeneratePoints():
 		print("works")
 		SetChunkPolygon()
 		
-		
-		var points : PackedVector2Array = GlobalPoissonDiscSampler.generate_points_for_polygon(polygon_2d.polygon,100,2,Vector2.ZERO)
+		var start : float = Time.get_ticks_msec()
+		var points : PackedVector2Array = GlobalPoissonDiscSampler.generate_points_for_polygon(polygon_2d.polygon,10,2,Vector2.ZERO)
+		var end : float = Time.get_ticks_msec()
+		var time : float = end - start
+		print(time , "ms")
 		var point_amount : int = points.size()
 		multimesh_2d.multimesh.instance_count = point_amount
 		
@@ -49,7 +52,7 @@ func GeneratePoints():
 			
 			
 			multimesh_2d.multimesh.set_instance_transform_2d(i, Transform2D(angle, pos))
-			print(pos)
-	print(multimesh_2d.multimesh.instance_count)
+			
+	
 	
 	
