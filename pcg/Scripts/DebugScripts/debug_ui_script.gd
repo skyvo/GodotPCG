@@ -6,6 +6,7 @@ class_name  DebugPanel
 @export var fps_label : Label
 @export var frametime_label : Label
 @export var position_label : Label
+@export var zoom_label : Label
 
 @export var debug_toggle_container : Control
 @export var debug_profiler_container : Control
@@ -21,6 +22,9 @@ var max_frametime : float
 #position variables
 var current_chunk_position : Vector2i
 var current_tile_position : Vector2i
+
+#camera variables
+var current_zoom : Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -71,7 +75,7 @@ func PositionDebugUI():
 			current_chunk_position = new_current_chunk_coordinates
 			position_label.text = "CHUNK: " + str(current_chunk_position) + " / TILE: "
 			
-		
+	zoom_label.text = "zoom: " + str(current_zoom.x)	
 	pass
 
 func _on_check_button_toggled(toggled_on: bool) -> void:

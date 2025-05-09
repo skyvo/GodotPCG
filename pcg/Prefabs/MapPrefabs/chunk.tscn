@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://dwooqm8mpjjqs"]
+[gd_scene load_steps=15 format=4 uid="uid://dwooqm8mpjjqs"]
 
 [ext_resource type="Script" uid="uid://dfxekrsi0swus" path="res://Scripts/ChunkSystem/chunk_script.gd" id="1_hru86"]
 [ext_resource type="TileSet" uid="uid://d3pbtnjcpcqvk" path="res://Art/Tilsets/TerrainTileset.tres" id="2_hru86"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://cen02r0bv4ec6" path="res://Scripts/MapSripts/poison_disc_sampler.gd" id="7_34b46"]
 [ext_resource type="PackedScene" uid="uid://cjbhcssr0rhg4" path="res://Prefabs/TestPrefabs/test_sprite.tscn" id="8_dqnmf"]
 [ext_resource type="Texture2D" uid="uid://dj6vi0cqhmskr" path="res://Art/Sprites/TileSprites/circle.png" id="9_w0gn7"]
+[ext_resource type="Material" uid="uid://deaxqr38r6641" path="res://Art/Material/WorldMaterials/FogMaterial.tres" id="10_qiqk5"]
+[ext_resource type="Material" uid="uid://dyspk85bwjvdj" path="res://Art/Material/WorldMaterials/GridMaterial.tres" id="11_udbjd"]
 
 [sub_resource type="FontVariation" id="FontVariation_kdh3y"]
 
@@ -19,7 +21,7 @@ size = Vector2(64, 64)
 [sub_resource type="MultiMesh" id="MultiMesh_dqnmf"]
 mesh = SubResource("QuadMesh_34b46")
 
-[node name="Chunk" type="Node2D" node_paths=PackedStringArray("terrain_tilemap", "folliage_tilemap", "ground_folliage_tilemap", "water_layer", "posion_disc_sampler")]
+[node name="Chunk" type="Node2D" node_paths=PackedStringArray("terrain_tilemap", "folliage_tilemap", "ground_folliage_tilemap", "fertility_overlay_mesh", "fog", "grid", "water_layer", "posion_disc_sampler")]
 top_level = true
 z_index = 4
 z_as_relative = false
@@ -27,6 +29,9 @@ script = ExtResource("1_hru86")
 terrain_tilemap = NodePath("ChunkTilemaps/TerrainTilemapLayer")
 folliage_tilemap = NodePath("ChunkTilemaps/FolliageTilemapLayer")
 ground_folliage_tilemap = NodePath("ChunkTilemaps/GroundFolliageLayer")
+fertility_overlay_mesh = NodePath("PoisonDiscSampler/MultiMeshInstance2D")
+fog = NodePath("Fog")
+grid = NodePath("Grid")
 water_layer = NodePath("Water")
 debug_font = SubResource("FontVariation_kdh3y")
 posion_disc_sampler = NodePath("PoisonDiscSampler")
@@ -75,3 +80,24 @@ z_index = 4
 z_as_relative = false
 multimesh = SubResource("MultiMesh_dqnmf")
 texture = ExtResource("9_w0gn7")
+
+[node name="Fog" type="ColorRect" parent="."]
+visible = false
+z_index = 5
+material = ExtResource("10_qiqk5")
+custom_minimum_size = Vector2(800, 800)
+offset_left = -400.0
+offset_top = -400.0
+offset_right = 400.0
+offset_bottom = 400.0
+
+[node name="Grid" type="ColorRect" parent="."]
+visible = false
+z_index = 5
+texture_filter = 1
+material = ExtResource("11_udbjd")
+custom_minimum_size = Vector2(800, 800)
+offset_left = -400.0
+offset_top = -400.0
+offset_right = 400.0
+offset_bottom = 400.0

@@ -13,6 +13,8 @@ var chunk_rect: Rect2i
 
 @export_category("Overlay Meshes")
 @export var fertility_overlay_mesh : Node2D
+@export var fog : Control
+@export var grid : Control
 
 @export_category("TextureLayers")
 @export var water_layer : WaterLayer
@@ -32,10 +34,6 @@ var debug_enabled : bool = true
 # Called when the node enters the scene tree for the first time.
 
 func _ready() -> void:
-	
-	#setup
-	posion_disc_sampler.chunk = self
-	posion_disc_sampler.rect = chunk_rect
 	chunk_rect.size = chunk_rect.size - Vector2i(16,16)
 	water_layer.chunk = self
 	queue_redraw()
@@ -43,7 +41,6 @@ func _ready() -> void:
 
 func GetChunkRect():
 	var chunk_total_size : int = tile_size * chunk_size
-	
 	#left
 	var l : Vector2i = Vector2i(-chunk_total_size/2,-chunk_total_size/2)
 	#right
@@ -56,7 +53,11 @@ func GetChunkRect():
 	rect.size = Vector2i(chunk_total_size,chunk_total_size)
 	
 	return rect
-	
+func SetLOD(desired_lod : int):
+	match desired_lod:
+		0 : ground_folliage_tilemap.visible = false ; folliage_tilemap.visible = false ; grid.visible = false
+		1 : ground_folliage_tilemap.visible = false ; folliage_tilemap.visible = true ;grid.visible = false
+		2 : ground_folliage_tilemap.visible = true ; folliage_tilemap.visible = true ; grid.visible = true
 func UpdateChunk():
 	if is_active:
 		set_process(true)
@@ -65,14 +66,17 @@ func UpdateChunk():
 	else:
 		visible = false
 		set_process(false)
+		
 func GenerateTilemap(fertility_noise : Noise, offset_terrain_noise : Noise, terrain_noise, mapgenerator : MapGenerator):
 	var max_terrain : float
 	var min_terrain : float
 	var max_folliage : float
 	var min_folliage : float
 	
-	for x in range(-chunk_size/2,chunk_size/2):
-		for y in range(-chunk_size/2,chunk_size/2):
+	for x in range((-chunk_size/2) - 1 ,(chunk_size/2)+1):
+		for y in range((-chunk_size/2) - 1 ,(chunk_size/2)+1):
+			
+			
 			var terrain_noise_value = terrain_noise.get_noise_2d(x + chunkCoordinates.x*chunk_size,y+ chunkCoordinates.y*chunk_size)
 			var fertility_noise_value = fertility_noise.get_noise_2d(x + chunkCoordinates.x*chunk_size,y+ chunkCoordinates.y*chunk_size)
 			var offset_terrain_noise_value = offset_terrain_noise.get_noise_2d(x + chunkCoordinates.x*chunk_size,y+ chunkCoordinates.y*chunk_size)
@@ -94,15 +98,16 @@ func GenerateTilemap(fertility_noise : Noise, offset_terrain_noise : Noise, terr
 				#min_folliage = fertility_noise_value
 			
 			terrain_tilemap.set_cell(Vector2i(x,y),1,terrain_atlas)
+			if !CheckIfOverdrawTile(x,y):
+				var r = randi_range(0,10)
+				if fertility_noise_value > -0.32:
+					if folliage_atlas != Vector2i(5,5):
+						folliage_tilemap.set_cell(Vector2i(x,y),0,folliage_atlas)
+				if fertility_noise_value > -0.41:
+					if folliage_atlas != Vector2i(5,5):
+						ground_folliage_tilemap.set_cell(Vector2i(x,y),0,ground_folliage_atlas)	
 			
-			
-			var r = randi_range(0,10)
-			if fertility_noise_value > -0.32:
-				if folliage_atlas != Vector2i(5,5):
-					folliage_tilemap.set_cell(Vector2i(x,y),0,folliage_atlas)
-			if fertility_noise_value > -0.41:
-				if folliage_atlas != Vector2i(5,5):
-					ground_folliage_tilemap.set_cell(Vector2i(x,y),0,ground_folliage_atlas)	
+				
 	#print("folliage MINMAX : ", min_folliage, "/",max_folliage)
 	
 func Clear():
@@ -120,3 +125,11 @@ func _draw() -> void:
 			draw_rect(chunk_rect,new_color,true,-1,true)
 		draw_string(debug_font,Vector2.ZERO, str(chunkCoordinates),HORIZONTAL_ALIGNMENT_CENTER,-1,70,color)
 		pass
+
+func CheckIfOverdrawTile(x : int,y : int) -> bool:
+	if x == (chunk_size/2) + 1 &&  x == (-chunk_size/2) - 1:
+		return true
+		
+	if y == (chunk_size/2) + 1 or y == (-chunk_size/2 )- 1:
+		return true
+	return false			

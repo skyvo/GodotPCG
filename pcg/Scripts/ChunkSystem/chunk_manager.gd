@@ -107,7 +107,7 @@ func GetTileAtPosition(point_global_position):
 	return
 	
 func UpdateVisibleChunks():
-
+	UpdateChunkLOD(current_LOD)
 	#profiler shit
 	var start = Time.get_ticks_usec()
 	
@@ -145,6 +145,7 @@ func GetValidChunks() -> Array [Chunk]:
 	valid_chunks.append(current_visited_chunk)
 	for n in GetNeighbours(current_visited_chunk.chunkCoordinates):
 		valid_chunks.append(chunk_dictionary.get(n))
+	current_loaded_chunks = valid_chunks
 	return valid_chunks
 #debug handler
 func UpdateDebugState():
@@ -153,6 +154,15 @@ func UpdateDebugState():
 		chunk.debug_backdrop = debug_backdrop
 		queue_redraw()
 	queue_redraw()	
+	
+func UpdateChunkLOD(new_lod):
+	current_LOD = new_lod
+	print("hmmmm")
+	print(current_loaded_chunks.size())
+	for chunk in current_generated_chunks:
+		print("changed_lod")
+		chunk.SetLOD(new_lod)
+		
 func _on_chunk_timer_timeout() -> void:
 	UpdateVisibleChunks()
 	GetTileAtPosition(get_global_mouse_position())

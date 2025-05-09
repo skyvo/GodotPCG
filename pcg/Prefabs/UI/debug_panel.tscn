@@ -9,12 +9,13 @@ bg_color = Color(0.12549, 0.12549, 0.12549, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jk87f"]
 bg_color = Color(0.125911, 0.125911, 0.125911, 1)
 
-[node name="DebugPanel" type="PanelContainer" node_paths=PackedStringArray("fps_label", "frametime_label", "position_label", "debug_toggle_container", "debug_profiler_container")]
+[node name="DebugPanel" type="PanelContainer" node_paths=PackedStringArray("fps_label", "frametime_label", "position_label", "zoom_label", "debug_toggle_container", "debug_profiler_container")]
 theme = ExtResource("2_cg2wo")
 script = ExtResource("1_jk87f")
 fps_label = NodePath("MarginContainer/DebugVbox/DebugProfilerPanel/PerformanceLabels/FPSLabel")
 frametime_label = NodePath("MarginContainer/DebugVbox/DebugProfilerPanel/PerformanceLabels/FrameTimeLabel")
 position_label = NodePath("MarginContainer/DebugVbox/MapInfo/PositionsLabel")
+zoom_label = NodePath("MarginContainer/DebugVbox/MapInfo/ZoomLabel")
 debug_toggle_container = NodePath("MarginContainer/DebugVbox/VBoxContainer/DebugToggleContainer")
 debug_profiler_container = NodePath("MarginContainer/DebugVbox/DebugProfilerPanel")
 

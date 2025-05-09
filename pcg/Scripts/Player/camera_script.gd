@@ -21,8 +21,8 @@ var current_zoom
 var pan_direction:float = 0
 
 #LOD SYSTEM
-
 @export var chunk_manager : ChunkManager
+var current_LOD_level : int = 0
 #flags
 var input_enabled : bool = true
 var can_zoom:bool = true
@@ -38,6 +38,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	var new_lod : int = CalculateLOD()
+	
+	if new_lod != current_LOD_level:
+		current_LOD_level = new_lod
+		print(new_lod)
+		chunk_manager.UpdateChunkLOD(new_lod)
 	if input_enabled:
 		camera_movement(delta)
 		camera_pan(delta)
@@ -97,3 +103,17 @@ func PositionConstraint():
 	var limit : int = (chunk_manager.chunk_amount/2)*(chunk_manager.chunk_size)*(chunk_manager.tile_size)
 	global_position.clamp(Vector2(-limit,-limit),Vector2(limit,limit))
 	
+
+#LOD
+
+func CalculateLOD():
+	var current_zoom = camera.zoom
+	
+	if current_zoom.x <= .40:
+		return 0
+	if current_zoom.x >= .55 && current_zoom.x < .85:
+		return 1 
+	if current_zoom.x >= .85 :
+		return 2 
+		
+	return 0

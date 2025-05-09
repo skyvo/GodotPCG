@@ -30,4 +30,5 @@ func _process(delta: float) -> void:
 			visible = false
 		else:
 			visible = true
+	debug_panel.current_zoom = camera_controller.camera.zoom
 	pass

@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dyspk85bwjvdj"]
+
+[ext_resource type="Shader" uid="uid://b21gd7npqc0wv" path="res://Art/Shaders/grid_overlay.gdshader" id="1_1pum5"]
+
+[resource]
+shader = ExtResource("1_1pum5")
+shader_parameter/size = Vector2(800, 800)
+shader_parameter/line_width = 0.04
+shader_parameter/line_opacity = 0.425
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/grid_size = 16.0

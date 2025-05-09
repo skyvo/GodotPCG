@@ -76,4 +76,6 @@ visible = false
 custom_minimum_size = Vector2(22.99, 176.905)
 layout_mode = 2
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+
 [editable path="Control/MarginContainer/HBoxContainer/MapSavesPanelContainer"]
